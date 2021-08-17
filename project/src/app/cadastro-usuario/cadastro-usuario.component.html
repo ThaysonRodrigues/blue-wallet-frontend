@@ -1,0 +1,76 @@
+<div mat-dialog-content>
+  <p>What's your favorite animal?</p>
+  <mat-form-field appearance="fill">
+    <mat-label>Favorite Animal</mat-label>
+  </mat-form-field>
+</div>
+
+
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Blue Wallet</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="container">
+<div class="form-login">
+  <mat-card>
+    <mat-card-title>Cadastro</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="cadastroForm">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field>
+              <input type="text" matInput placeholder="Nome Completo" formControlName="nome">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field>
+              <mat-label>Data de Nascimento</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="data_nascimento">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+          
+        <div class="row">
+          <div class="col-md-12">
+          <mat-form-field>
+            <input type="email" matInput placeholder="Email" formControlName="email">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field>
+            <input type="text" matInput placeholder="Celular" formControlName="celular">
+          </mat-form-field>
+        </div>
+      </div>   
+       
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field>
+            <input type="password" matInput placeholder="Senha" formControlName="senha">
+          </mat-form-field>
+        </div>
+      </div>   
+      
+      <div class="row">
+        <div class="col-md-12">
+        
+        <button routerLink="/cadastro" class="float-left" color="primary" type="submit" mat-raised-button>Facebook</button> 
+      
+        <button (click)="cadastrarUsuario()" class="float-right" color="primary" mat-raised-button>REGISTRAR</button>      
+        </div>
+      </div> 
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+</div>

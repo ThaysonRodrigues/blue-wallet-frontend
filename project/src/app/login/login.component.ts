@@ -13,15 +13,4 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  openDialog(): void {
-    const dialogRef = this.dialog.open(CadastroUsuarioComponent, {
-      height: '400px',
-      width: '600px',
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-  }
 }

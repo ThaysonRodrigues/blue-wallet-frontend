@@ -7,19 +7,20 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatDialogModule } from '@angular/material/dialog';
 
 import { CadastroUsuarioComponent } from './cadastro-usuario/cadastro-usuario.component';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
+import { TextMaskModule } from 'angular2-text-mask';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RouteRoutingModule } from './route-routing.module';
 import { CadastroService } from './service/cadastroService';
-
 
 @NgModule({
   declarations: [
@@ -40,7 +41,11 @@ import { CadastroService } from './service/cadastroService';
     RouteRoutingModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatDialogModule
+    MatSnackBarModule,    
+    TextMaskModule
+  ],
+  exports: [
+    MatInputModule
   ],
   providers: [CadastroService],
   bootstrap: [AppComponent]

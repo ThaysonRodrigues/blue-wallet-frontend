@@ -15,7 +15,10 @@ mat-card-title, mat-card-content {
     justify-content: center;
 }
 
-.button-login {
-    display: flex;
-    justify-content: flex-end;
+.button-100 {
+    width: 100%;
+}
+
+.button-cadastrar {
+    margin-top: 30px;
 }

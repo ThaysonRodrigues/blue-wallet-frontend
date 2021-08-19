@@ -1,11 +1,3 @@
-<div mat-dialog-content>
-  <p>What's your favorite animal?</p>
-  <mat-form-field appearance="fill">
-    <mat-label>Favorite Animal</mat-label>
-  </mat-form-field>
-</div>
-
-
 <mat-toolbar color="primary">
   <mat-toolbar-row>
     <span>Blue Wallet</span>
@@ -13,6 +5,15 @@
 </mat-toolbar>
 
 <div class="container">
+
+  <div class="row" *ngIf="showMsg">
+    <div class="col-md-12">
+      <p class="alert alert-success">
+          <strong>Registration Success!</strong> Please click here to login!.
+      </p>
+    </div>
+  </div>
+
 <div class="form-login">
   <mat-card>
     <mat-card-title>Cadastro</mat-card-title>
@@ -48,7 +49,7 @@
       <div class="row">
         <div class="col-md-6">
           <mat-form-field>
-            <input type="text" matInput placeholder="Celular" formControlName="celular">
+            <input [textMask]="{mask: maskTelefone}" type="text" matInput placeholder="Celular" formControlName="celular">
           </mat-form-field>
         </div>
       </div>   
@@ -62,11 +63,8 @@
       </div>   
       
       <div class="row">
-        <div class="col-md-12">
-        
-        <button routerLink="/cadastro" class="float-left" color="primary" type="submit" mat-raised-button>Facebook</button> 
-      
-        <button (click)="cadastrarUsuario()" class="float-right" color="primary" mat-raised-button>REGISTRAR</button>      
+        <div class="col-md-12">          
+        <button (click)="cadastrarUsuario()" class="button-100" color="primary" mat-raised-button>REGISTRAR</button>      
         </div>
       </div> 
       </form>

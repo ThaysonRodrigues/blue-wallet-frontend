@@ -11,7 +11,7 @@
         <form>
           <p>
             <mat-form-field>
-              <input type="text" matInput placeholder="Nome">
+              <input type="text" matInput placeholder="Email">
             </mat-form-field>
           </p>
   
@@ -20,10 +20,15 @@
               <input type="password" matInput placeholder="Senha">
             </mat-form-field>
           </p>
-  
-          <button (click)="openDialog()" class="float-left" color="primary" type="submit" mat-raised-button>CADASTRAR</button>  
-           
-          <button class="float-right" color="primary" mat-raised-button>LOGIN</button>      
+          
+          <div>
+            <button class="button-100" color="primary" mat-raised-button>LOGIN</button>      
+          </div>
+
+          <div class="button-cadastrar">
+            <hr />
+            <button class="button-100" routerLink="/cadastro"  color="primary" mat-raised-button>CRIAR NOVA CONTA</button>  
+          </div>        
         </form>
       </mat-card-content>
     </mat-card>

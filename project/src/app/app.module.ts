@@ -13,9 +13,9 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { TextMaskModule } from 'angular2-text-mask';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -29,20 +29,20 @@ import { CadastroService } from './service/cadastroService';
     LoginComponent
   ],
   imports: [
-    BrowserModule,
     ReactiveFormsModule,
+    BrowserModule,
     BrowserAnimationsModule,
+    RouterModule,
+    RouteRoutingModule,
     HttpClientModule,  
     MatCardModule,
     MatInputModule,
     MatButtonModule,
-    MatToolbarModule,
-    RouterModule,
-    RouteRoutingModule,
+    MatToolbarModule, 
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSnackBarModule,    
-    TextMaskModule
+    TextMaskModule,
+    ToastrModule.forRoot()
   ],
   exports: [
     MatInputModule

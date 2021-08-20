@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CadastroService } from '../service/cadastroService';
 import { DateAdapter } from '@angular/material/core';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cadastro-usuario',
@@ -13,14 +14,13 @@ export class CadastroUsuarioComponent implements OnInit {
 
   public cadastroForm: FormGroup;
 
-  showMsg: boolean = false;
-
   public maskTelefone = ['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
   constructor(private formBuilder: FormBuilder,
               private cadastroService: CadastroService,
               private dateAdapter: DateAdapter<Date>,
-              private _snackBar: MatSnackBar) 
+              private toastr: ToastrService,
+              private router: Router) 
               {
                 this.dateAdapter.setLocale('pt-BR');
               }
@@ -31,7 +31,6 @@ export class CadastroUsuarioComponent implements OnInit {
 
   cadastrarUsuario(): void {    
     if(this.cadastroForm.valid) {       
-      this.showMsg= true;
       let request = this.cadastroService.cadastroRequest;
       
       request.nome = this.cadastroForm.get('nome').value;
@@ -40,25 +39,23 @@ export class CadastroUsuarioComponent implements OnInit {
       request.celular = this.cadastroForm.get('celular').value;
       request.senha = this.cadastroForm.get('senha').value;
       
-      //this.cadastroService.cadastrarUsuario().subscribe(usuario => {}, err => {console.log(err)});
-      this.limparFormulario();
+      this.router.navigate(['/']);
+
+      this.toastr.success('Cadastro efetuado com sucesso!', 'Parabéns');
+
+      this.cadastroService.cadastrarUsuario().subscribe(usuario => {}, err => {console.log(err)});
+    } else {
+      this.toastr.error('Por favor, preencha todos os campos obrigatórios', 'Erro', {progressBar: true});
     }
   }
 
-  private populateFromOnInit() {
+  populateFromOnInit() {
     this.cadastroForm = this.formBuilder.group({
-      nome: ['', Validators.required],
-      email: ['', Validators.required],
-      telefone: ['', Validators.required],
-      celular: ['', Validators.required],
-      senha: ['', Validators.required],
-      data_nascimento: ['', Validators.required]
-    });
-  }
-
-  private limparFormulario (){
-    this.cadastroForm.reset({
-      'nome': ''
+      nome: new FormControl('', [Validators.required]),
+      data_nascimento: new FormControl(Date(), [Validators.required]),
+      email: new FormControl('', [Validators.required]),
+      celular: new FormControl('', [Validators.required]),
+      senha: new FormControl('', [Validators.required]),
     });
   }
 }

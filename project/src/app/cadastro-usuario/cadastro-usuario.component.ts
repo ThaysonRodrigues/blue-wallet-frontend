@@ -39,13 +39,19 @@ export class CadastroUsuarioComponent implements OnInit {
       request.celular = this.cadastroForm.get('celular').value;
       request.senha = this.cadastroForm.get('senha').value;
       
-      this.router.navigate(['/']);
-
-      this.toastr.success('Cadastro efetuado com sucesso!', 'Parabéns');
-
-      this.cadastroService.cadastrarUsuario().subscribe(usuario => {}, err => {console.log(err)});
+      this.cadastroService.cadastrarUsuario().subscribe((response) => {
+        this.router.navigate(['/']);
+        this.toastr.success('Cadastro efetuado com sucesso!', 'Parabéns');
+      }, (error) => {
+        if(error.status == 400) {
+          this.cadastroForm.get('email').setValue('');
+          this.toastr.error(error.error.message, 'Erro');
+        } else {
+          this.toastr.error('Tente novamente mais tarde!', 'Erro');
+        }
+      });
     } else {
-      this.toastr.error('Por favor, preencha todos os campos obrigatórios', 'Erro', {progressBar: true});
+      this.toastr.error('Por favor, preencha todos os campos obrigatórios', 'Erro');
     }
   }
 

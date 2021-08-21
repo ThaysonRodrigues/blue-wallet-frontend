@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CadastrarUsuarioRequest } from './interface/request/cadastrarUsuarioRequest';
+import { environment } from 'src/environments/environment';
 
 @Injectable(
     { providedIn: 'root' }
@@ -29,6 +30,6 @@ export class CadastroService {
             })
         };
         
-        return this.http.post<CadastrarUsuarioRequest>("/api/conta/cadastrar", this.cadastroRequest, httpOptions);
+        return this.http.post<CadastrarUsuarioRequest>(environment.cadastrarNovoUsuario, this.cadastroRequest, httpOptions);
     }
 }

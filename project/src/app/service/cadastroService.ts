@@ -1,35 +1,24 @@
 import { Observable } from 'rxjs';
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { CadastrarUsuarioRequest } from './interface/request/cadastrarUsuarioRequest';
 import { environment } from 'src/environments/environment';
 
-@Injectable(
+@Injectable
+(
     { providedIn: 'root' }
-  )
+)
+
 export class CadastroService {
 
-    public cadastroRequest: CadastrarUsuarioRequest;
+    constructor(private http: HttpClient) {}
 
-    constructor(private http: HttpClient) {
-        this.cadastroRequest = new CadastrarUsuarioRequest();
+    cadastrarUsuario(cadastroRequest: CadastrarUsuarioRequest): Observable<any> {
+        console.log('cadastrando novo usuario');
+        return this.http.post<CadastrarUsuarioRequest>(environment.cadastrarNovoUsuario, cadastroRequest);
     }
 
-    cadastrarUsuario(): Observable<any> {
-
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': 'true',
-                'Access-Control-Allow-Headers': 'Content-Type',
-                'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
-                'key': 'x-api-key',
-                'value': 'NNctr6Tjrw9794gFXf3fi6zWBZ78j6Gv3UCb3y0x',
-
-            })
-        };
-        
-        return this.http.post<CadastrarUsuarioRequest>(environment.cadastrarNovoUsuario, this.cadastroRequest, httpOptions);
+    verificarCadastro(cadastroRequest: CadastrarUsuarioRequest): Observable<any> {
+        return this.http.post(environment.verificarConta, cadastroRequest, {observe: 'response'});
     }
 }

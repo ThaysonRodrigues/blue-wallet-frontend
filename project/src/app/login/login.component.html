@@ -24,11 +24,15 @@
           <div>
             <button class="button-100" color="primary" mat-raised-button>LOGIN</button>      
           </div>
-
+          
           <div class="button-cadastrar">
             <hr />
+            <button type="button" class="button-100" (click)="loginWithGoogle()" color="primary" mat-raised-button> <i class="bi bi-google"></i> CONTINUAR COM O GOOGLE</button>
+          </div>  
+          
+          <div class="button-cadastrar-facebook">
             <button class="button-100" routerLink="/cadastro"  color="primary" mat-raised-button>CRIAR NOVA CONTA</button>  
-          </div>        
+          </div>  
         </form>
       </mat-card-content>
     </mat-card>

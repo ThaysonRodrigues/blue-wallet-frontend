@@ -16,17 +16,20 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { TextMaskModule } from 'angular2-text-mask';
 import { ToastrModule } from 'ngx-toastr';
+import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RouteRoutingModule } from './route-routing.module';
 import { CadastroService } from './service/cadastroService';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CadastroUsuarioComponent,
-    LoginComponent
+    LoginComponent,
+    DashboardComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -42,12 +45,27 @@ import { CadastroService } from './service/cadastroService';
     MatDatepickerModule,
     MatNativeDateModule,
     TextMaskModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    SocialLoginModule
   ],
   exports: [
     MatInputModule
   ],
-  providers: [CadastroService],
+  providers: [CadastroService,
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '1008478321576-mmistilbbeecje21inkate8m7ilq23v6.apps.googleusercontent.com'
+            )
+          }
+        ]
+      } as SocialAuthServiceConfig,
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -22,3 +22,7 @@ mat-card-title, mat-card-content {
 .button-cadastrar {
     margin-top: 30px;
 }
+
+.button-cadastrar-facebook {
+    margin-top: 10px; 
+}

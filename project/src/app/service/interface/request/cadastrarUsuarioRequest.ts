@@ -4,4 +4,5 @@ export class CadastrarUsuarioRequest {
     celular: string;
     dataNascimento: string;
     senha: string;
+    googleCode: string;
 }

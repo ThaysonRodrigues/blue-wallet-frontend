@@ -4,6 +4,7 @@ import { CadastroService } from '../service/cadastroService';
 import { DateAdapter } from '@angular/material/core';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { CadastrarUsuarioRequest } from '../service/interface/request/cadastrarUsuarioRequest';
 
 @Component({
   selector: 'app-cadastro-usuario',
@@ -12,9 +13,11 @@ import { Router } from '@angular/router';
 })
 export class CadastroUsuarioComponent implements OnInit {
 
-  public cadastroForm: FormGroup;
-
   public maskTelefone = ['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+  
+  public cadastroForm: FormGroup;
+  cadastroRequest: CadastrarUsuarioRequest;
+  
 
   constructor(private formBuilder: FormBuilder,
               private cadastroService: CadastroService,
@@ -31,15 +34,15 @@ export class CadastroUsuarioComponent implements OnInit {
 
   cadastrarUsuario(): void {    
     if(this.cadastroForm.valid) {       
-      let request = this.cadastroService.cadastroRequest;
+      this.cadastroRequest = new CadastrarUsuarioRequest();
       
-      request.nome = this.cadastroForm.get('nome').value;
-      request.dataNascimento = this.cadastroForm.get('data_nascimento').value;
-      request.email = this.cadastroForm.get('email').value;
-      request.celular = this.cadastroForm.get('celular').value;
-      request.senha = this.cadastroForm.get('senha').value;
+      this.cadastroRequest.nome = this.cadastroForm.get('nome').value;
+      this.cadastroRequest.dataNascimento = this.cadastroForm.get('data_nascimento').value;
+      this.cadastroRequest.email = this.cadastroForm.get('email').value;
+      this.cadastroRequest.celular = this.cadastroForm.get('celular').value;
+      this.cadastroRequest.senha = this.cadastroForm.get('senha').value;
       
-      this.cadastroService.cadastrarUsuario().subscribe((response) => {
+      this.cadastroService.cadastrarUsuario(this.cadastroRequest).subscribe((response) => {
         this.router.navigate(['/']);
         this.toastr.success('Cadastro efetuado com sucesso!', 'Parabéns');
       }, (error) => {

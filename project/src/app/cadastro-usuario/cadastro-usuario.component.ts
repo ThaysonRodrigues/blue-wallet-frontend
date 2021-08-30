@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { CadastroService } from '../service/cadastroService';
+import { CadastroService } from '../service/cadastro.service';
 import { DateAdapter } from '@angular/material/core';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -29,7 +29,7 @@ export class CadastroUsuarioComponent implements OnInit {
               }
 
   ngOnInit(): void {
-    this.populateFromOnInit();
+    this.populateFormOnInit();
   }
 
   cadastrarUsuario(): void {    
@@ -58,7 +58,7 @@ export class CadastroUsuarioComponent implements OnInit {
     }
   }
 
-  populateFromOnInit() {
+  populateFormOnInit() {
     this.cadastroForm = this.formBuilder.group({
       nome: new FormControl('', [Validators.required]),
       data_nascimento: new FormControl(Date(), [Validators.required]),

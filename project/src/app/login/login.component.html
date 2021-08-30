@@ -8,21 +8,21 @@
     <mat-card>
       <mat-card-title>Login</mat-card-title>
       <mat-card-content>
-        <form>
+        <form [formGroup]="loginForm">
           <p>
             <mat-form-field>
-              <input type="text" matInput placeholder="Email">
+              <input type="text" matInput placeholder="Email" formControlName="email">
             </mat-form-field>
           </p>
   
           <p>
             <mat-form-field>
-              <input type="password" matInput placeholder="Senha">
+              <input type="password" matInput placeholder="Senha" formControlName="senha">
             </mat-form-field>
           </p>
           
           <div>
-            <button class="button-100" color="primary" mat-raised-button>LOGIN</button>      
+            <button class="button-100" (click)="login()" color="primary" mat-raised-button>LOGIN</button>      
           </div>
           
           <div class="button-cadastrar">

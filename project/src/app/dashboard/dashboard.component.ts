@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SocialAuthService, SocialUser } from 'angularx-social-login';
 
-import { CadastroService } from '../service/cadastroService';
+import { CadastroService } from '../service/cadastro.service';
 
 @Component({
   selector: 'app-dashboard',

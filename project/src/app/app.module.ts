@@ -21,8 +21,9 @@ import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider } from 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RouteRoutingModule } from './route-routing.module';
-import { CadastroService } from './service/cadastroService';
+import { CadastroService } from './service/cadastro.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { AuthService } from './service/auth.service';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   exports: [
     MatInputModule
   ],
-  providers: [CadastroService,
+  providers: [CadastroService, AuthService,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {

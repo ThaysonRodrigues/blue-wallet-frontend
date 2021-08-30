@@ -14,7 +14,6 @@ export class CadastroService {
     constructor(private http: HttpClient) {}
 
     cadastrarUsuario(cadastroRequest: CadastrarUsuarioRequest): Observable<any> {
-        console.log('cadastrando novo usuario');
         return this.http.post<CadastrarUsuarioRequest>(environment.cadastrarNovoUsuario, cadastroRequest);
     }
 

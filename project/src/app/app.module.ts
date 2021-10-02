@@ -24,13 +24,17 @@ import { RouteRoutingModule } from './route-routing.module';
 import { CadastroService } from './service/cadastro.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthService } from './service/auth.service';
+import { MenuComponent } from './snippets/menu/menu.component';
+import { ReceitasComponent } from './receitas/receitas.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CadastroUsuarioComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    MenuComponent,
+    ReceitasComponent
   ],
   imports: [
     ReactiveFormsModule,

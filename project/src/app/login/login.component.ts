@@ -37,8 +37,7 @@ export class LoginComponent implements OnInit {
       let senha = this.loginForm.get('senha').value;
 
       this.authService.autenticarUsuario(email, senha).subscribe((response) => {
-        this.toastr.info('AAAEEE', 'Atenção');
-        console.log(response.body.token);
+        this.router.navigate(['/dashboard']);
       }, (responseError) => {
         if(responseError.status == 401) {      
           this.toastr.error('Email ou Senha Inválido!', 'Atenção');

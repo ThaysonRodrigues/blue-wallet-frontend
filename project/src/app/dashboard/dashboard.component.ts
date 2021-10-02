@@ -24,8 +24,8 @@ export class DashboardComponent implements OnInit {
       this.loggedIn = (user != null);
     });
 
-    if (!this.loggedIn) {
-      this.router.navigate(['/']);
-    }
+    //if (!this.loggedIn) {
+    //  this.router.navigate(['/']);
+   // }
   }
 }

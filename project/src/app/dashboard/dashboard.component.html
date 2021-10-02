@@ -1,6 +1,112 @@
-<p>dashboard works!</p>
+<div class="wrapper ">
+  <div class="sidebar" data-color="purple" data-background-color="white" data-image="../../../assets/img/sidebar-1.jpg">
+    <div class="logo"><a class="simple-text logo-normal">
+        Blue Wallet
+      </a></div>
+    <div class="sidebar-wrapper">
+      <ul class="nav">
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/dashboard']">
+            <i class="material-icons">dashboard</i>
+            <p>DASHBOARD</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/receitas']">
+            <i class="material-icons">paid</i>
+            <p>RECEITAS</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="./tables.html">
+            <i class="material-icons">money_off</i>
+            <p>DESPESAS</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="./tables.html">
+            <i class="material-icons">logout</i>
+            <p>SAIR</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
 
-<div>
-  <h4>{{ user.name }}</h4>
-  <p>{{ user.email }}</p>
+  <div class="main-panel">
+    <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+      <div class="container-fluid">
+        <div class="navbar-wrapper">
+          <a class="navbar-brand" href="javascript:;">Dashboard</a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="navbar-toggler-icon icon-bar"></span>
+          <span class="navbar-toggler-icon icon-bar"></span>
+          <span class="navbar-toggler-icon icon-bar"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end">
+          Bem vindo Thayson Rodrigues        
+        </div>
+      </div>
+    </nav>
+
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-header card-header-info card-header-icon">
+                <div class="card-icon">
+                  <i class="material-icons">account_balance</i>
+                </div>
+                <p class="card-category">Saldo Atual</p>
+                <h3 class="card-title">49/50
+                  <small>GB</small>
+                </h3>
+              </div>
+              <div class="card-footer">
+                <div class="stats">
+                  <i class="material-icons text-danger">warning</i>
+                  <a href="">Ver Detalhes</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-header card-header-success card-header-icon">
+                <div class="card-icon">
+                  <i class="material-icons">attach_money</i>
+                </div>
+                <p class="card-category">Receitas</p>
+                <h3 class="card-title">$34,245</h3>
+              </div>
+              <div class="card-footer">
+                <div class="stats">
+                  <i class="material-icons">date_range</i> Last 24 Hours
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-header card-header-danger card-header-icon">
+                <div class="card-icon">
+                  <i class="material-icons">money_off</i>
+                </div>
+                <p class="card-category">Despesas</p>
+                <h3 class="card-title">75</h3>
+              </div>
+              <div class="card-footer">
+                <div class="stats">
+                  <i class="material-icons">local_offer</i> Tracked from Github
+                </div>
+              </div>
+            </div>
+          </div>        
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

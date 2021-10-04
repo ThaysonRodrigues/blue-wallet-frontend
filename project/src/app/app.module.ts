@@ -26,6 +26,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthService } from './service/auth.service';
 import { MenuComponent } from './snippets/menu/menu.component';
 import { ReceitasComponent } from './receitas/receitas.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogReceitaComponent } from './dialog-receita/dialog-receita.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { ReceitasComponent } from './receitas/receitas.component';
     LoginComponent,
     DashboardComponent,
     MenuComponent,
-    ReceitasComponent
+    ReceitasComponent,
+    DialogReceitaComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -51,7 +54,8 @@ import { ReceitasComponent } from './receitas/receitas.component';
     MatNativeDateModule,
     TextMaskModule,
     ToastrModule.forRoot(),
-    SocialLoginModule
+    SocialLoginModule,
+    MatDialogModule
   ],
   exports: [
     MatInputModule

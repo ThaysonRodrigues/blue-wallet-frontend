@@ -3,3 +3,7 @@
 
 html, body { height: 100%; background-color: #f6f6f6;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.backgroundAzul {
+    background-color: #3F51B5; 
+}

@@ -37,7 +37,7 @@
     <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
       <div class="container-fluid">
         <div class="navbar-wrapper">
-          <a class="navbar-brand" href="javascript:;">re</a>
+          <a class="navbar-brand" href="javascript:;">Receitas</a>
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
           <span class="sr-only">Toggle navigation</span>
@@ -53,58 +53,82 @@
 
     <div class="content">
       <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-header card-header-info card-header-icon">
-                <div class="card-icon">
-                  <i class="material-icons">account_balance</i>
-                </div>
-                <p class="card-category">Saldo Atual</p>
-                <h3 class="card-title">49/50
-                  <small>GB</small>
-                </h3>
-              </div>
-              <div class="card-footer">
-                <div class="stats">
-                  <i class="material-icons text-danger">warning</i>
-                  <a href="">Ver Detalhes</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-header card-header-success card-header-icon">
-                <div class="card-icon">
-                  <i class="material-icons">attach_money</i>
-                </div>
-                <p class="card-category">Receitas</p>
-                <h3 class="card-title">$34,245</h3>
-              </div>
-              <div class="card-footer">
-                <div class="stats">
-                  <i class="material-icons">date_range</i> Last 24 Hours
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-header card-header-danger card-header-icon">
-                <div class="card-icon">
-                  <i class="material-icons">money_off</i>
-                </div>
-                <p class="card-category">Despesas</p>
-                <h3 class="card-title">75</h3>
-              </div>
-              <div class="card-footer">
-                <div class="stats">
-                  <i class="material-icons">local_offer</i> Tracked from Github
-                </div>
-              </div>
-            </div>
-          </div>        
+        <div class="row">        
+          <div class="col-md-12">
+            <table class="table">
+              <thead>
+                  <tr>
+                      <th class="text-center">#</th>
+                      <th>Name</th>
+                      <th>Job Position</th>
+                      <th>Since</th>
+                      <th class="text-right">Salary</th>
+                      <th class="text-right">Actions</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td class="text-center">1</td>
+                      <td>Andrew Mike</td>
+                      <td>Develop</td>
+                      <td>2013</td>
+                      <td class="text-right">&euro; 99,225</td>
+                      <td class="td-actions text-right">
+                          <button type="button" rel="tooltip" class="btn btn-info">
+                              <i class="material-icons">person</i>
+                          </button>
+                          <button type="button" rel="tooltip" class="btn btn-success">
+                              <i class="material-icons">edit</i>
+                          </button>
+                          <button type="button" rel="tooltip" class="btn btn-danger">
+                              <i class="material-icons">close</i>
+                          </button>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td class="text-center">2</td>
+                      <td>John Doe</td>
+                      <td>Design</td>
+                      <td>2012</td>
+                      <td class="text-right">&euro; 89,241</td>
+                      <td class="td-actions text-right">
+                          <button type="button" rel="tooltip" class="btn btn-info btn-round">
+                              <i class="material-icons">person</i>
+                          </button>
+                          <button type="button" rel="tooltip" class="btn btn-success btn-round">
+                              <i class="material-icons">edit</i>
+                          </button>
+                          <button type="button" rel="tooltip" class="btn btn-danger btn-round">
+                              <i class="material-icons">close</i>
+                          </button>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td class="text-center">3</td>
+                      <td>Alex Mike</td>
+                      <td>Design</td>
+                      <td>2010</td>
+                      <td class="text-right">&euro; 92,144</td>
+                      <td class="td-actions text-right">
+                          <button type="button" rel="tooltip" class="btn btn-info btn-simple">
+                              <i class="material-icons">person</i>
+                          </button>
+                          <button type="button" rel="tooltip" class="btn btn-success btn-simple">
+                              <i class="material-icons">edit</i>
+                          </button>
+                          <button type="button" rel="tooltip" class="btn btn-danger btn-simple">
+                              <i class="material-icons">close</i>
+                          </button>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+          </div>       
+            <div class="col-md-12">
+              <button type="button" (click)="openDialog()" class="btn btn-primary float-right backgroundAzul" style="background-color: #3F51B5; ">
+                NOVA RECEITA
+              </button>
+            </div>        
         </div>
       </div>
     </div>

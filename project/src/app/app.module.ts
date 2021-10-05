@@ -28,6 +28,8 @@ import { MenuComponent } from './snippets/menu/menu.component';
 import { ReceitasComponent } from './receitas/receitas.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogReceitaComponent } from './dialog-receita/dialog-receita.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+
 
 @NgModule({
   declarations: [
@@ -55,7 +57,8 @@ import { DialogReceitaComponent } from './dialog-receita/dialog-receita.componen
     TextMaskModule,
     ToastrModule.forRoot(),
     SocialLoginModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSlideToggleModule
   ],
   exports: [
     MatInputModule

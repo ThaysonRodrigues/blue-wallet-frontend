@@ -9,9 +9,19 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class DialogReceitaComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<DialogReceitaComponent>) { }
+  constructor(public dialogRef: MatDialogRef<DialogReceitaComponent>,
+              private formBuilder: FormBuilder) {}
 
+  public receitaForm: FormGroup;
+  
   ngOnInit(): void {
+    this.populateFormOnInit();
+  }
+
+  populateFormOnInit() {
+    this.receitaForm = this.formBuilder.group({
+      despesaPaga: true
+    });
   }
 
   cancelar(): void {

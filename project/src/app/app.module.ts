@@ -29,6 +29,9 @@ import { ReceitasComponent } from './receitas/receitas.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogReceitaComponent } from './dialog-receita/dialog-receita.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSelectModule } from '@angular/material/select';
+import { NgxCurrencyModule } from "ngx-currency";
+
 
 
 @NgModule({
@@ -58,7 +61,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     ToastrModule.forRoot(),
     SocialLoginModule,
     MatDialogModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatSelectModule,
+    NgxCurrencyModule
   ],
   exports: [
     MatInputModule

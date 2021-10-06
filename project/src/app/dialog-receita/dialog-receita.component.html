@@ -16,14 +16,20 @@
         <div class="row">
             <div class="col-md-6">
                 <mat-form-field>
-                    <input type="number" matInput placeholder="Valor">
+                    <input 
+                        type="text" 
+                        matInput 
+                        currencyMask 
+                        [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" 
+                        placeholder="Valor"
+                        formControlName="valor">
                 </mat-form-field>
             </div>
         
             <div class="col-md-6">
                 <mat-form-field>
                     <mat-label>Data de lançamento</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="data_nascimento">
+                    <input matInput [matDatepicker]="picker">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
@@ -33,13 +39,19 @@
         <div class="row">
             <div class="col-md-6">
                 <mat-form-field>
-                    <input type="text" matInput placeholder="Categoria">
-                </mat-form-field>
+                    <mat-label>Categoria</mat-label>
+                    <mat-select>
+                      <mat-option *ngFor="let categoria of listCategoriaReceita" 
+                            [value]="categoria.id">
+                        {{categoria.descricao}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
             </div>
             
             <div class="col-md-6">
                 <mat-form-field>
-                    <input type="number" matInput placeholder="Quantidade de parcelas">
+                    <input type="number" matInput placeholder="Quantidade de parcelas" formControlName="quantidadeParcelas">
                 </mat-form-field>
             </div>
         </div>

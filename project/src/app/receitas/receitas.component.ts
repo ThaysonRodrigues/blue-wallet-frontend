@@ -18,7 +18,7 @@ export class ReceitasComponent implements OnInit {
   
   listLancamentoReceita: ReceitaDTO[];
    
-  displayedColumns: string [] = ['idReceita'];
+  displayedColumns: string [] = ['idReceita', 'Categoria'];
 
   ngOnInit(): void {
     this.lancamentoReceitaService.listarLancamentoReceita('2021-09', this.tokenService.getToken())

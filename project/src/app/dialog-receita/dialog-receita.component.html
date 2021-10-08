@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-md-12">
                 <mat-form-field>
-                    <input type="text" matInput placeholder="Descrição">
+                    <input type="text" matInput placeholder="Descrição" formControlName="descricao">
                 </mat-form-field>
             </div>
         </div>
@@ -29,7 +29,7 @@
             <div class="col-md-6">
                 <mat-form-field>
                     <mat-label>Data de lançamento</mat-label>
-                    <input matInput [matDatepicker]="picker">
+                    <input matInput [matDatepicker]="picker" formControlName="dataLancamento">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
@@ -40,7 +40,7 @@
             <div class="col-md-6">
                 <mat-form-field>
                     <mat-label>Categoria</mat-label>
-                    <mat-select>
+                    <mat-select formControlName="categoriaReceita">
                       <mat-option *ngFor="let categoria of listCategoriaReceita" 
                             [value]="categoria.id">
                         {{categoria.descricao}}
@@ -66,7 +66,7 @@
     
         <div class="row">
             <div class="col-md-12 btnSalvar">          
-                <button class="float-right" color="primary" mat-raised-button>SALVAR</button>      
+                <button (click)="gravarLancamentoReceita()" class="float-right" color="primary" mat-raised-button>SALVAR</button>      
             </div>
         </div> 
     </form>

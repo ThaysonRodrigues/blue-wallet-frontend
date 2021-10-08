@@ -31,6 +31,7 @@ import { DialogReceitaComponent } from './dialog-receita/dialog-receita.componen
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxCurrencyModule } from "ngx-currency";
+import { MatTableModule } from '@angular/material/table';
 
 
 
@@ -63,7 +64,8 @@ import { NgxCurrencyModule } from "ngx-currency";
     MatDialogModule,
     MatSlideToggleModule,
     MatSelectModule,
-    NgxCurrencyModule
+    NgxCurrencyModule,
+    MatTableModule
   ],
   exports: [
     MatInputModule

@@ -32,8 +32,11 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxCurrencyModule } from "ngx-currency";
 import { MatTableModule } from '@angular/material/table';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
 
-
+registerLocaleData(localePt);
 
 @NgModule({
   declarations: [
@@ -70,21 +73,24 @@ import { MatTableModule } from '@angular/material/table';
   exports: [
     MatInputModule
   ],
-  providers: [CadastroService, AuthService,
-    {
-      provide: 'SocialAuthServiceConfig',
-      useValue: {
-        autoLogin: false,
-        providers: [
-          {
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider(
-              '1008478321576-mmistilbbeecje21inkate8m7ilq23v6.apps.googleusercontent.com'
-            )
-          }
-        ]
-      } as SocialAuthServiceConfig,
-  }],
+  providers: 
+  [CadastroService, AuthService,
+      {
+        provide: 'SocialAuthServiceConfig',
+        useValue: {
+          autoLogin: false,
+          providers: [
+            {
+              id: GoogleLoginProvider.PROVIDER_ID,
+              provider: new GoogleLoginProvider(
+                '1008478321576-mmistilbbeecje21inkate8m7ilq23v6.apps.googleusercontent.com'
+              )
+            }
+          ]
+        } as SocialAuthServiceConfig,
+    },
+    {provide: LOCALE_ID, useValue: 'pt-BR'}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

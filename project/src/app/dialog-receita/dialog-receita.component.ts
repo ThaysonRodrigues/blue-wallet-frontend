@@ -42,7 +42,7 @@ export class DialogReceitaComponent implements OnInit {
     if(this.receitaForm.valid) {
       let receita = new LancamentoReceitaRequest();
 
-      receita.descricaoq = this.receitaForm.get('descricao').value;
+      receita.descricao = this.receitaForm.get('descricao').value;
       receita.valor = this.receitaForm.get('valor').value;
       receita.dataLancamento = this.receitaForm.get('dataLancamento').value;
       receita.categoriaReceita = this.receitaForm.get('categoriaReceita').value;

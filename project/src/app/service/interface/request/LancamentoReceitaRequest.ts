@@ -1,5 +1,5 @@
 export class LancamentoReceitaRequest {
-    descricaoq: string;
+    descricao: string;
     categoriaReceita: number;
     dataLancamento: string;
     flgPagamentoEfetuado: boolean;

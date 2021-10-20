@@ -18,7 +18,6 @@ export class CadastroUsuarioComponent implements OnInit {
   public cadastroForm: FormGroup;
   cadastroRequest: CadastrarUsuarioRequest;
   
-
   constructor(private formBuilder: FormBuilder,
               private cadastroService: CadastroService,
               private dateAdapter: DateAdapter<Date>,

@@ -16,3 +16,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .btnSalvar {
     padding-top: 15px;
 }
+
+.teste {
+    background-color: #3F51B5;
+    color: white;
+}
+
+.table {
+    border-radius: 5px;
+}

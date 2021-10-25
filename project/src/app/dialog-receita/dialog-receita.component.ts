@@ -22,7 +22,7 @@ export class DialogReceitaComponent implements OnInit {
               private categoriaReceitaService: CategoriaReceitaService,
               private dateAdapter: DateAdapter<Date>,
               private toastr: ToastrService,
-              private lancamentoReceitaService: LancamentoReceitaService,
+              private lancamentoReceitaService: LancamentoReceitaService
               ) {
                 this.dateAdapter.setLocale('pt-BR');
               }

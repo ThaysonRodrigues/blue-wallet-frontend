@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogReceitaComponent } from '../dialog-receita/dialog-receita.component';
 import { ReceitaDTO } from '../service/interface/response/receitaDTO';
 import { LancamentoReceitaService } from '../service/lancamento-receita.service';
 import { TokenService } from '../service/token.service'
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
 import { Moment } from 'moment';
-import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MatDatepicker } from '@angular/material/datepicker';
+import { MatPaginator } from '@angular/material/paginator';
 
 import * as moment from 'moment';
 import { MY_FORMATS } from './myFormats';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-receitas',
@@ -31,30 +33,28 @@ export class ReceitasComponent implements OnInit {
 
   constructor(public dialog: MatDialog,
               private lancamentoReceitaService: LancamentoReceitaService,
-              private tokenService: TokenService
+              private tokenService: TokenService,
+              private toastr: ToastrService,
               ) { }
   
   listLancamentoReceita: ReceitaDTO[];   
+  
   displayedColumns: string [] = ['descricao', 'valor', 'categoria', 'numParcelas', 'dataLancamento', 'situacao'];
+  
   dataPesquisaReceita = new FormControl(moment());
+  
+  public pesquisaReceitaForm: FormGroup;
 
-  cont: number = 0;
+  DATE_FORMAT = "YYYY-MM";
 
+  public loading = false;
+  
   ngOnInit(): void {
-    this.lancamentoReceitaService.listarLancamentoReceita('2021-09', this.tokenService.getToken())
-      .subscribe((res) => {
-        this.listLancamentoReceita = res;
-        console.log(res);
-      });
+    this.listarLancamentoReceitas();
   }
 
   pesquisarLancamentoReceita(event) {
-    this.cont++;
-
-    if(this.cont === 2) {
-      alert('agora ' + this.dataPesquisaReceita.value)
-      this.cont = 0;
-    }
+    this.listarLancamentoReceitas();
   }
 
   chosenYearHandler(normalizedYear: Moment) {
@@ -76,7 +76,23 @@ export class ReceitasComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      this.dataPesquisaReceita = new FormControl(moment());
+      this.listarLancamentoReceitas();
     });
+  }
+
+  listarLancamentoReceitas() {
+    this.loading = true;
+    this.listLancamentoReceita = null;
+    var dataPesquisa = moment(this.dataPesquisaReceita.value).format(this.DATE_FORMAT);
+
+    this.lancamentoReceitaService.listarLancamentoReceita(dataPesquisa, this.tokenService.getToken())
+      .subscribe((res) => {
+        this.loading = false;
+        this.listLancamentoReceita = res;
+      }, err => {
+        this.loading = false;
+        this.toastr.error('Ocorreu um erro ao buscar as receitas, tente novamente mais tarde', '');
+      });
   }
 }

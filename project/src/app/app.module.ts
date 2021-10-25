@@ -34,7 +34,10 @@ import { NgxCurrencyModule } from "ngx-currency";
 import { MatTableModule } from '@angular/material/table';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NgxLoadingModule } from 'ngx-loading';
 import localePt from '@angular/common/locales/pt';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 registerLocaleData(localePt);
 
@@ -68,7 +71,14 @@ registerLocaleData(localePt);
     MatSlideToggleModule,
     MatSelectModule,
     NgxCurrencyModule,
-    MatTableModule
+    MatTableModule,
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
+    NgxLoadingModule.forRoot({
+      primaryColour : ' #3F51B5 ', 
+      SecondColour : ' #3F51B5 ', 
+      tertiaryColour : ' #3F51B5 ' 
+    })
   ],
   exports: [
     MatInputModule

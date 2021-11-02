@@ -1,9 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 
-html, body { height: 100%; background-color: #f6f6f6;}
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
 .backgroundAzul {
     background-color: #3F51B5; 
 }
@@ -20,8 +17,21 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .teste {
     background-color: #3F51B5;
     color: white;
+    font-size: 11pt !important;
 }
 
 .table {
     border-radius: 5px;
+}
+
+.situacaoPaga {
+    color: green;
+}
+
+.situacaoPendente {
+    color: red;
+}
+
+.fundoCinza {
+    background-color: #EEEEEE;
 }

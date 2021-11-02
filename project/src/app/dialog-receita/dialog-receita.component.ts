@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { CategoriaReceitaService } from '../service/categoria-receita.service';
+import { ControleEstadoReceitasService } from '../service/controle-estado-receitas.service.service';
 import { LancamentoReceitaRequest } from '../service/interface/request/LancamentoReceitaRequest';
 import { CategoriaResponseDTO } from '../service/interface/response/categoriaResponseDTO';
 import { LancamentoReceitaService } from '../service/lancamento-receita.service';
@@ -14,6 +15,10 @@ import { TokenService } from '../service/token.service';
   templateUrl: './dialog-receita.component.html',
   styleUrls: ['./dialog-receita.component.css']
 })
+
+@Injectable({
+  providedIn: 'root'
+})
 export class DialogReceitaComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<DialogReceitaComponent>,
@@ -22,7 +27,8 @@ export class DialogReceitaComponent implements OnInit {
               private categoriaReceitaService: CategoriaReceitaService,
               private dateAdapter: DateAdapter<Date>,
               private toastr: ToastrService,
-              private lancamentoReceitaService: LancamentoReceitaService
+              private lancamentoReceitaService: LancamentoReceitaService,
+              private controleEstadoReceita: ControleEstadoReceitasService
               ) {
                 this.dateAdapter.setLocale('pt-BR');
               }
@@ -52,7 +58,7 @@ export class DialogReceitaComponent implements OnInit {
       this.lancamentoReceitaService.gravarLancamentoReceita(receita, this.tokenService.getToken())
         .subscribe(data => {
           this.fecharModal();
-          this.toastr.success('Receita cadastrada com sucesso!');
+          this.controleEstadoReceita.setAtualizaTable(true);
         }, (error) => {
           this.toastr.error('Tente novamente mais tarde!', 'Erro');
         });
@@ -74,5 +80,9 @@ export class DialogReceitaComponent implements OnInit {
 
   fecharModal(): void {
     this.dialogRef.close();
+  }
+
+  teste(receita) {
+
   }
 }

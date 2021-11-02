@@ -1,4 +1,8 @@
 export interface ReceitaDTO {
+    content: ReceitaDtoContent
+}
+
+export class ReceitaDtoContent {
     idReceita: number;
     categoriaReceita: number;
     descricao: string;

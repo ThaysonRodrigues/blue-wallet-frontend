@@ -5,15 +5,18 @@ import { ReceitaDTO } from '../service/interface/response/receitaDTO';
 import { LancamentoReceitaService } from '../service/lancamento-receita.service';
 import { TokenService } from '../service/token.service'
 import { FormControl, FormGroup } from '@angular/forms';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { Moment } from 'moment';
 import { MatDatepicker } from '@angular/material/datepicker';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 import * as moment from 'moment';
 import { MY_FORMATS } from './myFormats';
 import { ToastrService } from 'ngx-toastr';
+import { MatTableDataSource } from '@angular/material/table';
+import { ControleEstadoReceitasService } from '../service/controle-estado-receitas.service.service';
+import { Acao } from 'src/environments/acao';
 
 @Component({
   selector: 'app-receitas',
@@ -35,11 +38,10 @@ export class ReceitasComponent implements OnInit {
               private lancamentoReceitaService: LancamentoReceitaService,
               private tokenService: TokenService,
               private toastr: ToastrService,
+              private controleEstadoReceita: ControleEstadoReceitasService,
               ) { }
-  
-  listLancamentoReceita: ReceitaDTO[];   
-  
-  displayedColumns: string [] = ['descricao', 'valor', 'categoria', 'numParcelas', 'dataLancamento', 'situacao'];
+
+  displayedColumns: string [] = ['descricao', 'valor', 'categoria', 'numParcelas', 'dataLancamento', 'situacao', 'editar', 'apagar'];
   
   dataPesquisaReceita = new FormControl(moment());
   
@@ -47,14 +49,20 @@ export class ReceitasComponent implements OnInit {
 
   DATE_FORMAT = "YYYY-MM";
 
-  public loading = false;
+  loading = false;
+
+  length: number;
+
+  dataSource: MatTableDataSource<ReceitaDTO>;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   
   ngOnInit(): void {
-    this.listarLancamentoReceitas();
+    this.listarLancamentoReceitas(null);
   }
 
   pesquisarLancamentoReceita(event) {
-    this.listarLancamentoReceitas();
+    this.listarLancamentoReceitas(null);
   }
 
   chosenYearHandler(normalizedYear: Moment) {
@@ -76,23 +84,56 @@ export class ReceitasComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.dataPesquisaReceita = new FormControl(moment());
-      this.listarLancamentoReceitas();
+      if(this.controleEstadoReceita.getAtualizaTable()) {
+        this.controleEstadoReceita.setAtualizaTable(false);
+        this.listarLancamentoReceitas(Acao.GRAVAR);
+      }
     });
   }
 
-  listarLancamentoReceitas() {
+  listarLancamentoReceitas(acao: Acao) {
     this.loading = true;
-    this.listLancamentoReceita = null;
     var dataPesquisa = moment(this.dataPesquisaReceita.value).format(this.DATE_FORMAT);
 
     this.lancamentoReceitaService.listarLancamentoReceita(dataPesquisa, this.tokenService.getToken())
       .subscribe((res) => {
         this.loading = false;
-        this.listLancamentoReceita = res;
+
+        if(res) {
+          this.dataSource = new MatTableDataSource(res.content);    
+          this.dataSource.paginator = this.paginator;    
+          this.length = res.totalElements;
+        } else {
+          this.dataSource = new MatTableDataSource(null);    
+        }
+
+        this.notificarUsuario(acao);
       }, err => {
         this.loading = false;
         this.toastr.error('Ocorreu um erro ao buscar as receitas, tente novamente mais tarde', '');
       });
+  }
+
+  apagarReceita(idReceita: number) {
+    if(confirm("Tem certeza que deseja realizar a exclusão da receita?")) {
+      this.lancamentoReceitaService.apagarReceita(idReceita, this.tokenService.getToken())
+      .subscribe((res) => {
+        this.listarLancamentoReceitas(Acao.DELETAR);
+      }, err => {
+        this.toastr.error('Ocorreu um erro excluir receita, tente novamente mais tarde!', '');
+      });
+    }
+  }
+
+  editarReceita(receita) {
+    this.openDialog();
+  }
+
+  notificarUsuario(acao: Acao) {
+    if(acao == Acao.DELETAR) {
+      this.toastr.success('Receita deletada com sucesso!', '');
+    } else if(acao == Acao.GRAVAR) {
+      this.toastr.success('Receita cadastrada com sucesso!');
+    }
   }
 }

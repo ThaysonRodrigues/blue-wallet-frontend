@@ -21,12 +21,21 @@ export class LancamentoReceitaService {
    return this.http.post(environment.gravarLancamentoReceita, receita, { headers: headers });
   }
 
-  listarLancamentoReceita(data: string, token: string): Observable<ReceitaDTO[]> {
+  listarLancamentoReceita(data: string, token: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.get<ReceitaDTO[]>(environment.listarLancamentoReceita + "/" + data, {headers: headers});
+    return this.http.get<ReceitaDTO[]>(environment.listarLancamentoReceita + "/" + data + "?page=0", {headers: headers});
+  }
+
+  apagarReceita(idReceita: number, token: string):  Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.delete(environment.apagarReceita + `/${idReceita}`, {headers: headers});
   }
 }

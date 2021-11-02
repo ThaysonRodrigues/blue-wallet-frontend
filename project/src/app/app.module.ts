@@ -38,6 +38,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgxLoadingModule } from 'ngx-loading';
 import localePt from '@angular/common/locales/pt';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatIconModule } from '@angular/material/icon';
 
 registerLocaleData(localePt);
 
@@ -74,6 +75,7 @@ registerLocaleData(localePt);
     MatTableModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
+    MatIconModule,
     NgxLoadingModule.forRoot({
       primaryColour : ' #3F51B5 ', 
       SecondColour : ' #3F51B5 ', 

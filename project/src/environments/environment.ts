@@ -7,6 +7,7 @@ export const environment = {
   autenticarUsuario: apiURL + '/auth',
   pesquisarCategoriaReceita: apiURL + "/categoria/receita",
   gravarLancamentoReceita: apiURL + "/receita/cadastrar",
-  listarLancamentoReceita: apiURL + "/receita/pesquisar"
+  listarLancamentoReceita: apiURL + "/receita/pesquisar",
+  apagarReceita: apiURL + "/receita/deletar"
 };
 

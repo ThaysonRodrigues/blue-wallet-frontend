@@ -2,8 +2,10 @@ import { Component, Injectable, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
-import { CategoriaReceitaService } from '../service/categoria-receita.service';
+import { Acao } from 'src/environments/acao';
+import { CategoriaService } from '../service/categoria.service';
 import { ControleEstadoReceitasService } from '../service/controle-estado-receitas.service.service';
 import { LancamentoReceitaRequest } from '../service/interface/request/LancamentoReceitaRequest';
 import { CategoriaResponseDTO } from '../service/interface/response/categoriaResponseDTO';
@@ -24,7 +26,7 @@ export class DialogReceitaComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<DialogReceitaComponent>,
               private formBuilder: FormBuilder,
               private tokenService: TokenService,
-              private categoriaReceitaService: CategoriaReceitaService,
+              private categoriaService: CategoriaService,
               private dateAdapter: DateAdapter<Date>,
               private toastr: ToastrService,
               private lancamentoReceitaService: LancamentoReceitaService,
@@ -36,12 +38,29 @@ export class DialogReceitaComponent implements OnInit {
   public receitaForm: FormGroup;
 
   listCategoriaReceita: CategoriaResponseDTO[];
+
+  DATE_FORMAT = "MM/DD/YYYY";
+
+  descricaoAcao: string;
   
+  idReceita: number;
+
   ngOnInit(): void {
     this.populateFormOnInit();
 
-    this.categoriaReceitaService.listCategoriaReceita(this.tokenService.getToken())
+    this.categoriaService.listCategoriaReceita(this.tokenService.getToken())
       .subscribe(res => this.listCategoriaReceita = res);
+
+    if(this.controleEstadoReceita.getReceita() != null) {
+      this.populaFormEdicao(this.controleEstadoReceita.getReceita());
+      
+      this.descricaoAcao = 'Editar Receita';
+      this.idReceita = this.controleEstadoReceita.getReceita().idReceita;
+      
+      this.controleEstadoReceita.setReceita(null);      
+    } else {
+      this.descricaoAcao = 'Cadastrar Receita';
+    }
   }
 
   gravarLancamentoReceita() {
@@ -55,13 +74,31 @@ export class DialogReceitaComponent implements OnInit {
       receita.numeroParcelas = this.receitaForm.get('quantidadeParcelas').value;
       receita.flgPagamentoEfetuado = this.receitaForm.get('despesaPaga').value;
 
-      this.lancamentoReceitaService.gravarLancamentoReceita(receita, this.tokenService.getToken())
-        .subscribe(data => {
-          this.fecharModal();
-          this.controleEstadoReceita.setAtualizaTable(true);
-        }, (error) => {
-          this.toastr.error('Tente novamente mais tarde!', 'Erro');
-        });
+      if(this.idReceita == null) { 
+        //Grava nova receita
+        this.lancamentoReceitaService.gravarLancamentoReceita(receita, this.tokenService.getToken())
+          .subscribe(data => {
+            this.fecharModal();
+            
+            this.controleEstadoReceita.setAtualizaTable(true);
+            this.controleEstadoReceita.setAcao(Acao.GRAVAR);
+          }, (error) => {
+            this.toastr.error('Tente novamente mais tarde!', 'Erro');
+          });
+      } else { 
+        // Atualiza receita
+        receita.idReceita = this.idReceita;
+
+        this.lancamentoReceitaService.atualizaLancamentoReceita(receita, this.tokenService.getToken())
+          .subscribe(data => {
+            this.fecharModal();
+            this.controleEstadoReceita.setAtualizaTable(true);
+
+            this.controleEstadoReceita.setAcao(Acao.EDITAR);
+          }, (error) => {
+            this.toastr.error('Tente novamente mais tarde!', 'Erro');
+          });
+      }
     } else {
       this.toastr.error('Por favor, preencha todos os campos obrigatórios', 'Erro');
     }
@@ -82,7 +119,15 @@ export class DialogReceitaComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  teste(receita) {
+  populaFormEdicao(receita) {  
+    this.receitaForm.get('descricao').setValue(receita.descricao);
+    this.receitaForm.get('valor').setValue(receita.valor);
+    this.receitaForm.get('dataLancamento').setValue(new Date(moment(receita.dataLancamento)
+      .format(this.DATE_FORMAT)));
+    this.receitaForm.get('quantidadeParcelas').setValue(receita.numeroParcelas);
+    this.receitaForm.get('despesaPaga').setValue(receita.flgPagamentoEfetuado);
+    this.receitaForm.get('categoriaReceita').setValue(receita.categoriaReceita);
 
+    this.receitaForm.controls['quantidadeParcelas'].disable();
   }
 }

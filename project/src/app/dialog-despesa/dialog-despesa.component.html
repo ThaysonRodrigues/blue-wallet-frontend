@@ -4,7 +4,7 @@
     
     <hr>
     
-    <form [formGroup]="receitaForm">
+    <form [formGroup]="despesaForm">
         <div class="row">
             <div class="col-md-12">
                 <mat-form-field>
@@ -28,8 +28,8 @@
         
             <div class="col-md-6">
                 <mat-form-field>
-                    <mat-label>Data de lançamento</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="dataLancamento">
+                    <mat-label>Data de Pagamento</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="dataPagamento">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
@@ -40,8 +40,8 @@
             <div class="col-md-6">
                 <mat-form-field>
                     <mat-label>Categoria</mat-label>
-                    <mat-select formControlName="categoriaReceita">
-                      <mat-option *ngFor="let categoria of listCategoriaReceita" 
+                    <mat-select formControlName="categoriaDespesa">
+                      <mat-option *ngFor="let categoria of listCategoriaDespesa" 
                             [value]="categoria.id">
                         {{categoria.descricao}}
                       </mat-option>
@@ -58,7 +58,7 @@
     
         <div class="row">           
             <div class="col-md-6 slidePago">
-                <mat-label>{{receitaForm.get('despesaPaga').value ? 'Receita foi paga' : 'Receita não foi paga'}}</mat-label>
+                <mat-label>{{despesaForm.get('despesaPaga').value ? 'Despesa foi paga' : 'Receita não foi paga'}}</mat-label>
                 <mat-slide-toggle class="float-right" color="primary" formControlName="despesaPaga">
                 </mat-slide-toggle>
             </div>
@@ -66,7 +66,7 @@
     
         <div class="row">
             <div class="col-md-12 btnSalvar">          
-                <button (click)="gravarLancamentoReceita()" class="float-right" color="primary" mat-raised-button>SALVAR</button>      
+                <button (click)="gravarLancamentoDespesa()" class="float-right" color="primary" mat-raised-button>SALVAR</button>      
             </div>
         </div> 
     </form>

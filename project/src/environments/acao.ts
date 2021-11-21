@@ -1,4 +1,5 @@
 export enum Acao {
     GRAVAR,
-    DELETAR
+    DELETAR,
+    EDITAR
 }

@@ -11,7 +11,8 @@ export class TokenService {
   constructor() {}
 
   hasToken() {
-    return !!this.getToken();
+    var token: String = this.getToken();
+    return token && token.length > 0;
   }
 
   setToken(token) {

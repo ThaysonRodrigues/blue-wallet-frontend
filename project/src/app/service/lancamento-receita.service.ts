@@ -21,6 +21,15 @@ export class LancamentoReceitaService {
    return this.http.post(environment.gravarLancamentoReceita, receita, { headers: headers });
   }
 
+  atualizaLancamentoReceita(receita: LancamentoReceitaRequest, token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+
+   return this.http.put(environment.editarLancamentoReceita, receita, { headers: headers });
+  }
+
   listarLancamentoReceita(data: string, token: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',

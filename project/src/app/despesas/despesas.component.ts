@@ -1,8 +1,6 @@
 import { Component, Injectable, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogReceitaComponent } from '../dialog-receita/dialog-receita.component';
 import { ReceitaDTO } from '../service/interface/response/receitaDTO';
-import { LancamentoReceitaService } from '../service/lancamento-receita.service';
 import { TokenService } from '../service/token.service'
 import { FormControl, FormGroup } from '@angular/forms';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
@@ -12,15 +10,17 @@ import { MatDatepicker } from '@angular/material/datepicker';
 import { MatPaginator } from '@angular/material/paginator';
 
 import * as moment from 'moment';
-import { MY_FORMATS } from '../../environments/myFormats';
 import { ToastrService } from 'ngx-toastr';
 import { MatTableDataSource } from '@angular/material/table';
-import { ControleEstadoReceitasService } from '../service/controle-estado-receitas.service.service';
 import { Acao } from 'src/environments/acao';
+import { MY_FORMATS } from 'src/environments/myFormats';
+import { LancamentoDespesaService } from '../service/lancamento-despesa.service';
+import { DialogDespesaComponent } from '../dialog-despesa/dialog-despesa.component';
+import { ControleEstadoDespesasService } from '../service/controle-estado-despesas.service';
 
 @Component({
-  selector: 'app-receitas',
-  templateUrl: './receitas.component.html',
+  selector: 'app-despesas',
+  templateUrl: './despesas.component.html',
   providers: [
     {
       provide: DateAdapter,
@@ -31,18 +31,17 @@ import { Acao } from 'src/environments/acao';
     {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
   ]
 })
-
-export class ReceitasComponent implements OnInit {
+export class DespesasComponent implements OnInit {
 
   constructor(public dialog: MatDialog,
-              private lancamentoReceitaService: LancamentoReceitaService,
+              private lancamentoDespesaService: LancamentoDespesaService,
               private tokenService: TokenService,
               private toastr: ToastrService,
-              private controleEstadoReceita: ControleEstadoReceitasService
-              ) { }
+              private controleEstadoDespesa: ControleEstadoDespesasService
+            ) {}
 
-  displayedColumns: string [] = ['descricao', 'valor', 'categoria', 'numParcelas', 'dataLancamento', 'situacao', 'editar', 'apagar'];
-  
+  displayedColumns: string [] = ['descricao', 'valor', 'categoria', 'numParcelas', 'dataPagamento', 'situacao', 'editar', 'apagar'];
+
   dataPesquisaReceita = new FormControl(moment());
   
   public pesquisaReceitaForm: FormGroup;
@@ -56,13 +55,13 @@ export class ReceitasComponent implements OnInit {
   dataSource: MatTableDataSource<ReceitaDTO>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  
+
   ngOnInit(): void {
-    this.listarLancamentoReceitas(null);
+    this.listarLancamentoDespesa(null);
   }
 
-  pesquisarLancamentoReceita(event) {
-    this.listarLancamentoReceitas(null);
+  pesquisarLancamentoDespesa(event) {
+    this.listarLancamentoDespesa(null);
   }
 
   chosenYearHandler(normalizedYear: Moment) {
@@ -79,23 +78,24 @@ export class ReceitasComponent implements OnInit {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(DialogReceitaComponent, {
+    const dialogRef = this.dialog.open(DialogDespesaComponent, {
       width: '500px'
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if(this.controleEstadoReceita.getAtualizaTable()) {
-        this.controleEstadoReceita.setAtualizaTable(false);
-        this.listarLancamentoReceitas(this.controleEstadoReceita.getAcao());
+    dialogRef.afterClosed().subscribe(result => {    
+      if(this.controleEstadoDespesa.getAtualizaTable()) {
+        this.controleEstadoDespesa.setAtualizaTable(false);
+        console.log(this.controleEstadoDespesa.getAcao())
+        this.listarLancamentoDespesa(this.controleEstadoDespesa.getAcao());
       }
     });
   }
 
-  listarLancamentoReceitas(acao: Acao) {
+  listarLancamentoDespesa(acao: Acao) {
     this.loading = true;
     var dataPesquisa = moment(this.dataPesquisaReceita.value).format(this.DATE_FORMAT);
 
-    this.lancamentoReceitaService.listarLancamentoReceita(dataPesquisa, this.tokenService.getToken())
+    this.lancamentoDespesaService.listarLancamentoDespesa(dataPesquisa, this.tokenService.getToken())
       .subscribe((res) => {
         this.loading = false;
 
@@ -106,7 +106,7 @@ export class ReceitasComponent implements OnInit {
         } else {
           this.dataSource = new MatTableDataSource(null);    
         }
-
+        
         this.notificarUsuario(acao);
       }, err => {
         this.loading = false;
@@ -114,29 +114,29 @@ export class ReceitasComponent implements OnInit {
       });
   }
 
-  apagarReceita(idReceita: number) {
-    if(confirm("Tem certeza que deseja realizar a exclusão da receita?")) {
-      this.lancamentoReceitaService.apagarReceita(idReceita, this.tokenService.getToken())
-      .subscribe((res) => {
-        this.listarLancamentoReceitas(Acao.DELETAR);
-      }, err => {
-        this.toastr.error('Ocorreu um erro excluir receita, tente novamente mais tarde!', '');
-      });
-    }
-  }
-
-  editarReceita(receita) {
+  editarDespesa(despesa) {
     this.openDialog();
-    this.controleEstadoReceita.setReceita(receita);
+    this.controleEstadoDespesa.setDespesa(despesa);
   }
 
   notificarUsuario(acao: Acao) {
     if(acao == Acao.DELETAR) {
-      this.toastr.success('Receita deletada com sucesso!', '');
+      this.toastr.success('Despesa deletada com sucesso!', '');
     } else if(acao == Acao.GRAVAR) {
-      this.toastr.success('Receita cadastrada com sucesso!');
+      this.toastr.success('Despesa cadastrada com sucesso!');
     } else if(acao == Acao.EDITAR) {
-      this.toastr.success('Receita editada com sucesso!');
+      this.toastr.success('Despesa editada com sucesso!');
+    }
+  }
+
+  apagarDespesa(idDespesa: number) {
+    if(confirm("Tem certeza que deseja realizar a exclusão da despesa?")) {
+      this.lancamentoDespesaService.apagarDespesa(idDespesa, this.tokenService.getToken())
+      .subscribe((res) => {
+        this.listarLancamentoDespesa(Acao.DELETAR);
+      }, err => {
+        this.toastr.error('Ocorreu um erro excluir receita, tente novamente mais tarde!', '');
+      });
     }
   }
 }

@@ -17,6 +17,8 @@ export class LoginComponent implements OnInit {
   socialUser: SocialUser;  
   cadastroRequest: CadastrarUsuarioRequest;
 
+  loading = false;
+
   public loginForm: FormGroup;
 
   constructor(private socialAuthService: SocialAuthService,
@@ -33,16 +35,21 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     if (this.loginForm.valid) {
+      this.loading = true;
+
       let email = this.loginForm.get('email').value;
       let senha = this.loginForm.get('senha').value;
 
       this.authService.autenticarUsuario(email, senha).subscribe((response) => {
+        this.loading = false;
         this.router.navigate(['/dashboard']);
       }, (responseError) => {
         if(responseError.status == 401) {      
+          this.loading = false;
           this.toastr.error('Email ou Senha Inválido!', 'Atenção');
           this.loginForm.reset();
         } else {
+          this.loading = false;
           this.toastr.error('Tente novamente mais tarde!', 'Erro');
         }
       });

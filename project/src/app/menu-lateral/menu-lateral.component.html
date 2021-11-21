@@ -1,0 +1,33 @@
+<div class="sidebar" data-color="purple" data-background-color="white">
+    <div class="logo"><a class="simple-text logo-normal">
+        Blue Wallet
+      </a></div>
+    <div class="sidebar-wrapper">
+      <ul class="nav" style="cursor: pointer;">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/dashboard']">
+            <i class="material-icons">dashboard</i>
+            <p>DASHBOARD</p>
+          </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/receitas']">
+            <i class="material-icons">paid</i>
+            <p>RECEITAS</p>
+          </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/despesas']">
+            <i class="material-icons">money_off</i>
+            <p>DESPESAS</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" (click)="logout()">
+            <i class="material-icons">logout</i>
+            <p>SAIR</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>

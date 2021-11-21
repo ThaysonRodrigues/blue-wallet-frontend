@@ -6,7 +6,7 @@ import { CategoriaResponseDTO } from './interface/response/categoriaResponseDTO'
 @Injectable({
   providedIn: 'root'
 })
-export class CategoriaReceitaService {
+export class CategoriaService {
 
   constructor(private http: HttpClient) { }
 
@@ -17,5 +17,14 @@ export class CategoriaReceitaService {
     });
 
     return this.http.get<CategoriaResponseDTO[]>(environment.pesquisarCategoriaReceita, { headers: headers});
+  }
+
+  listCategoriaDespesa(token: string) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<CategoriaResponseDTO[]>(environment.pesquisarCategoriaDespesa, { headers: headers});
   }
 }

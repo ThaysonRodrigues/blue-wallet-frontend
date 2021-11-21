@@ -39,6 +39,10 @@ import { NgxLoadingModule } from 'ngx-loading';
 import localePt from '@angular/common/locales/pt';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
+import { DespesasComponent } from './despesas/despesas.component';
+import { DialogDespesaComponent } from './dialog-despesa/dialog-despesa.component';
+import { SampleGuard } from 'src/environments/sampleGuard';
+import { MenuLateralComponent } from './menu-lateral/menu-lateral.component';
 
 registerLocaleData(localePt);
 
@@ -50,7 +54,10 @@ registerLocaleData(localePt);
     DashboardComponent,
     MenuComponent,
     ReceitasComponent,
-    DialogReceitaComponent
+    DialogReceitaComponent,
+    DespesasComponent,
+    DialogDespesaComponent,
+    MenuLateralComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -101,7 +108,8 @@ registerLocaleData(localePt);
           ]
         } as SocialAuthServiceConfig,
     },
-    {provide: LOCALE_ID, useValue: 'pt-BR'}
+    {provide: LOCALE_ID, useValue: 'pt-BR'},
+    SampleGuard
   ],
   bootstrap: [AppComponent]
 })

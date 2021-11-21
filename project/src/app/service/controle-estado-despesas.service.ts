@@ -4,13 +4,12 @@ import { Acao } from 'src/environments/acao';
 @Injectable({
   providedIn: 'root'
 })
-
-export class ControleEstadoReceitasService {
+export class ControleEstadoDespesasService {
 
   constructor() {}
 
   private atualizaTable = false;
-  private receita: any;
+  private despesa: any;
   private acao: Acao;
 
   setAtualizaTable(atualizaTable: boolean) {
@@ -21,12 +20,12 @@ export class ControleEstadoReceitasService {
     return this.atualizaTable;
   }
 
-  setReceita(receita) {
-    this.receita = receita
+  setDespesa(despesa) {
+    this.despesa = despesa
   }
 
-  getReceita() {
-    return this.receita;
+  getDespesa() {
+    return this.despesa;
   }
 
   setAcao(acao: Acao) {

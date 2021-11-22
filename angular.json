@@ -96,7 +96,8 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "blue-wallet:build:production"      
+              "browserTarget": "blue-wallet:build:production", 
+              "proxyConfig": "proxyconfig.json"   
             }
           }
         },

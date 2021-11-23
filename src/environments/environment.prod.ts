@@ -1,4 +1,4 @@
-const apiURL = 'https://sboot-blue-wallet.herokuapp.com/api';
+const apiURL = '/api';
 
 export const environment = {
   production: true,

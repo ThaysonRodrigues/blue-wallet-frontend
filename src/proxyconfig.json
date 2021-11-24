@@ -4,6 +4,6 @@
       "secure": false,
       "logLevel": "debug",
       "changeOrigin": true,
-      "pathRewrite": {"^/api" : "https://sboot-blue-wallet.herokuapp.com/api"}
+      "pathRewrite": {"^/api" : ""}
    }
 }

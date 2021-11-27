@@ -92,12 +92,12 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "blue-wallet:build",
-            "proxyConfig": "src/proxyconfig.json"   
+            "proxyConfig": "proxyconfig.json"   
           },
           "configurations": {
             "production": {
               "browserTarget": "blue-wallet:build:production",
-              "proxyConfig": "src/proxyconfig.json"   
+              "proxyConfig": "proxyconfig.json"   
             }
           }
         },

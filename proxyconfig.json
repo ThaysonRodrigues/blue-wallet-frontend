@@ -1,6 +1,6 @@
 {
    "/api/*": {
-      "target": "https://sboot-blue-wallet.herokuapp.com/",
+      "target": "https://sboot-blue-wallet.herokuapp.com/api",
       "secure": false,
       "logLevel": "debug",
       "changeOrigin": true,

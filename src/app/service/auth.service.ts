@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
@@ -16,14 +16,9 @@ export class AuthService {
             ) {}
 
   autenticarUsuario(email: string, senha: string): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
-    });
-
     return this.http
     .post(
-      environment.autenticarUsuario, {email, senha}, {headers: headers}
+      environment.autenticarUsuario, {email, senha}, {observe: 'response'}
     ).pipe(tap(res => {
       this.tokenService.setToken(res.body.token);
     }));

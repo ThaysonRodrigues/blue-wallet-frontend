@@ -2,15 +2,13 @@
   "name": "blue-wallet",
   "version": "0.0.0",
   "scripts": {
-    "heroku-postbuild": "ng build --aot --prod",
     "ng": "ng",
-    "start": "npm run build & concurrently --kill-others \"npm run serve-api\" \"npm run serve\"",
-    "serve": "ng serve --proxy-config proxy.config.json",
-    "build": "ng build",
-    "serve-api": "node server.js",
+    "start": "node server",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ng build --prod"
   },
   "engines": {
     "node": "14.16.0",
@@ -19,8 +17,6 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~11.2.7",
-    "@angular/cli": "~11.2.6",
-    "@angular/compiler-cli": "~11.2.7",
     "@angular/cdk": "~11.2.13",
     "@angular/common": "~11.2.7",
     "@angular/compiler": "~11.2.7",

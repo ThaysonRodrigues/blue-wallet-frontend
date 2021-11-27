@@ -23,7 +23,7 @@ export class AuthService {
 
     return this.http
     .post(
-      environment.autenticarUsuario, {email, senha}, {headers: headers}, {observe: 'response'}
+      environment.autenticarUsuario, {email, senha}, {headers: headers}
     ).pipe(tap(res => {
       this.tokenService.setToken(res.body.token);
     }));

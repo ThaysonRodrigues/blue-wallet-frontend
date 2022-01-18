@@ -22,6 +22,20 @@
 
     <div class="content">
       <div class="container-fluid">
+
+        <div class="row row d-flex justify-content-center">
+          <mat-form-field>
+            <input matInput [matDatepicker]="dp" [formControl]="dataPesquisaReceita">
+            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+              <mat-datepicker #dp
+                startView="year"
+                (monthSelected)="chosenMonthHandler($event, dp)"
+                (yearSelected)="chosenYearHandler($event)"
+              >
+            </mat-datepicker>
+          </mat-form-field>
+        </div>
+
         <div class="row">
           <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="card card-stats">

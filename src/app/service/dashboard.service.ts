@@ -17,6 +17,6 @@ export class DashboardService {
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.get<DashboardDTO>(environment.listarRelatorioDashboard + "/" + "2021-12", {headers: headers});
+    return this.http.get<DashboardDTO>(environment.listarRelatorioDashboard + "/" + data, {headers: headers});
   }
 }

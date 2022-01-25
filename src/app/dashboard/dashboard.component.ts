@@ -12,11 +12,11 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/mat
 import { MY_FORMATS } from 'src/environments/myFormats';
 import { DashboardService } from '../service/dashboard.service';
 import { TokenService } from '../service/token.service';
+import { DashboardDTO } from '../service/interface/response/dashboardDTO';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css'],
   providers: [
     {
       provide: DateAdapter,
@@ -32,11 +32,13 @@ export class DashboardComponent implements OnInit {
   user: SocialUser;
   loggedIn: boolean;
 
-  dataPesquisaReceita = new FormControl(moment());
+  dataPesquisaDashboard = new FormControl(moment());
 
   public pesquisaReceitaForm: FormGroup;
 
   DATE_FORMAT = "YYYY-MM";
+
+  dashboardMensal: DashboardDTO = new DashboardDTO();
 
   constructor(private authService: SocialAuthService,
               private router: Router,
@@ -44,7 +46,7 @@ export class DashboardComponent implements OnInit {
               private tokenService: TokenService) {}
 
   ngOnInit() {
-    this.listarRelatorioDashboardMensal()
+    this.getRelatorioDashboardMensal()
 
    // this.authService.authState.subscribe((user) => {
   //    this.user = user;
@@ -57,23 +59,28 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  listarRelatorioDashboardMensal() {
-    this.dashboardService.listarRelatorioDashboard(null, this.tokenService.getToken())
-    .subscribe((res) => {
-      console.log(res);
-    });
+  getRelatorioDashboardMensal() {
+    var dataPesquisa = moment(this.dataPesquisaDashboard.value).format(this.DATE_FORMAT);
+
+    console.log(dataPesquisa + "aquiii")
+
+    this.dashboardService.listarRelatorioDashboard(dataPesquisa, this.tokenService.getToken())
+    .subscribe((res) => {    
+      this.dashboardMensal = res;
+      console.log(this.dashboardMensal)
+    });    
   }
 
   chosenYearHandler(normalizedYear: Moment) {
-    const ctrlValue = this.dataPesquisaReceita.value;
+    const ctrlValue = this.dataPesquisaDashboard.value;
     ctrlValue.year(normalizedYear.year());
-    this.dataPesquisaReceita.setValue(ctrlValue);
+    this.dataPesquisaDashboard.setValue(ctrlValue);
   }
 
   chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
-    const ctrlValue = this.dataPesquisaReceita.value;
+    const ctrlValue = this.dataPesquisaDashboard.value;
     ctrlValue.month(normalizedMonth.month());
-    this.dataPesquisaReceita.setValue(ctrlValue);
+    this.dataPesquisaDashboard.setValue(ctrlValue);
     datepicker.close();
   }
 }

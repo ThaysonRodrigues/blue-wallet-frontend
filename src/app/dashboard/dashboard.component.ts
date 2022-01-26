@@ -40,13 +40,21 @@ export class DashboardComponent implements OnInit {
 
   dashboardMensal: DashboardDTO = new DashboardDTO();
 
+  public pieChartLabels = [];
+  public pieChartData = [];
+  public pieChartType = 'pie';
+  public chartColors: any[] = [
+    { 
+      backgroundColor:["#05AFC4", "#46A34A", "#EA4643", "#FFFCC4", "#B9E8E0"] 
+    }];
+
   constructor(private authService: SocialAuthService,
               private router: Router,
               private dashboardService: DashboardService,
               private tokenService: TokenService) {}
 
   ngOnInit() {
-    this.getRelatorioDashboardMensal()
+    this.getRelatorioDashboardMensal();
 
    // this.authService.authState.subscribe((user) => {
   //    this.user = user;
@@ -61,13 +69,14 @@ export class DashboardComponent implements OnInit {
 
   getRelatorioDashboardMensal() {
     var dataPesquisa = moment(this.dataPesquisaDashboard.value).format(this.DATE_FORMAT);
-
-    console.log(dataPesquisa + "aquiii")
-
     this.dashboardService.listarRelatorioDashboard(dataPesquisa, this.tokenService.getToken())
     .subscribe((res) => {    
       this.dashboardMensal = res;
-      console.log(this.dashboardMensal)
+
+      this.dashboardMensal.receitas.forEach(r => {
+        this.pieChartLabels.push(r.descricao);
+        this.pieChartData.push(r.valor)
+      });
     });    
   }
 

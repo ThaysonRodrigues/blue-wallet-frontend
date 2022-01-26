@@ -43,6 +43,7 @@ import { DespesasComponent } from './despesas/despesas.component';
 import { DialogDespesaComponent } from './dialog-despesa/dialog-despesa.component';
 import { SampleGuard } from 'src/environments/sampleGuard';
 import { MenuLateralComponent } from './menu-lateral/menu-lateral.component';
+import { ChartsModule } from 'ng2-charts';
 
 registerLocaleData(localePt);
 
@@ -64,6 +65,7 @@ registerLocaleData(localePt);
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule,
+    ChartsModule,
     RouteRoutingModule,
     HttpClientModule,  
     MatCardModule,

@@ -1,3 +1,5 @@
+<script src="node_modules/chart.js/src/chart.js"></script>
+
 <div class="wrapper ">
   
   <app-menu-lateral></app-menu-lateral>
@@ -94,22 +96,18 @@
         </div>
 
         <div class="row">
-          <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="card card-stats">
               <div class="card-header card-header-success card-header-icon">
-                <div class="card-icon">
-                  <i class="material-icons">pie_chart_outline</i>
-                </div>
-                <p class="card-category">Saldo Atual</p>
-                <h3 class="card-title">
-                  {{ dashboardMensal.valorSaldoAtual }}      
-                </h3>
+               <!-- <p class="card-category">Saldo Atual</p>           -->
+                  <canvas baseChart
+                    [data]="pieChartData"
+                    [labels]="pieChartLabels"
+                    [colors]="chartColors"
+                    [chartType]="pieChartType">
+                  </canvas>                   
               </div>
-              <div class="card-footer">
-                <div class="stats">
-                  <!--<i class="material-icons text-danger">warning</i>
-                  <a href="">Ver Detalhes</a>-->
-                </div>
+              <div class="card-footer">               
               </div>
             </div>
           </div>

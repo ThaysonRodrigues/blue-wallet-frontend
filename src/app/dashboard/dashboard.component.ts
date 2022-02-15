@@ -40,9 +40,15 @@ export class DashboardComponent implements OnInit {
 
   dashboardMensal: DashboardDTO = new DashboardDTO();
 
-  public pieChartLabels = [];
-  public pieChartData = [];
   public pieChartType = 'pie';
+  public pieChartLabelReceitas = [];
+  public pieChartDataReceitas = [];
+  public showReceitas = false;
+
+  public pieChartLabelDespesas = [];
+  public pieChartDataDespesas = [];
+  public showDespesas = false;
+  
   public chartColors: any[] = [
     { 
       backgroundColor:["#05AFC4", "#46A34A", "#EA4643", "#FFFCC4", "#B9E8E0"] 
@@ -54,30 +60,51 @@ export class DashboardComponent implements OnInit {
               private tokenService: TokenService) {}
 
   ngOnInit() {
-    this.getRelatorioDashboardMensal();
+    console.log('entrou aqui')
+   // this.getRelatorioDashboardMensal();
 
-   // this.authService.authState.subscribe((user) => {
+  // this.authService.authState.subscribe((user) => {
   //    this.user = user;
-    //  this.loggedIn = (user != null);
-  //  });
+  //    this.loggedIn = (user != null);
+   // });
 
-    //if (!this.loggedIn) {
-    //  this.router.navigate(['/']);
+   // if (!this.loggedIn) {
+   //   this.router.navigate(['/']);
    // }
   }
 
 
   getRelatorioDashboardMensal() {
     var dataPesquisa = moment(this.dataPesquisaDashboard.value).format(this.DATE_FORMAT);
+    this.limparGraficos();
+    
     this.dashboardService.listarRelatorioDashboard(dataPesquisa, this.tokenService.getToken())
     .subscribe((res) => {    
       this.dashboardMensal = res;
 
       this.dashboardMensal.receitas.forEach(r => {
-        this.pieChartLabels.push(r.descricao);
-        this.pieChartData.push(r.valor)
+        this.showReceitas = true;
+        this.pieChartLabelReceitas.push(r.descricao);
+        this.pieChartDataReceitas.push(r.valor)
       });
-    });    
+
+      this.dashboardMensal.despesas.forEach(r => {
+        this.showDespesas = true;
+        this.pieChartLabelDespesas.push(r.descricao);
+        this.pieChartDataDespesas.push(r.valor)
+      });
+    });       
+  }
+
+  private limparGraficos() {
+    this.showReceitas = false;
+    this.showDespesas = false;
+
+    this.pieChartLabelReceitas = [];
+    this.pieChartDataReceitas = [];
+
+    this.pieChartLabelDespesas = [];
+    this.pieChartDataDespesas = [];
   }
 
   chosenYearHandler(normalizedYear: Moment) {

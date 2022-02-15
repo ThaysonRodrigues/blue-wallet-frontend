@@ -1,4 +1,4 @@
-import { CategoriaDashboardDTO } from "./categoriadasboardDTO";
+import { CategoriaDashboardDTO } from "./categoriaDasboardDTO";
 
 export class DashboardDTO {
     valorTotalReceitas: string;

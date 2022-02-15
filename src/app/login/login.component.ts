@@ -59,28 +59,17 @@ export class LoginComponent implements OnInit {
   }
 
   loginWithGoogle(): void {
-    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((res) => {
+     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((res) => {
+    
+       this.cadastroRequest = new CadastrarUsuarioRequest;
+       this.cadastroRequest.email = res.email;
+       this.cadastroRequest.nome = res.firstName + " " + res.lastName;
+       this.cadastroRequest.idGoogle = res.id;
 
-      this.cadastroRequest = new CadastrarUsuarioRequest;
-      this.cadastroRequest.email = res.email;
-
-      this.cadastroService.verificarCadastro(this.cadastroRequest).subscribe((response) => {               
-        if (response.status == 204) {
-          this.cadastroRequest = new CadastrarUsuarioRequest();
-          
-          this.cadastroRequest.nome = res.name;
-          this.cadastroRequest.email = res.email;
-          this.cadastroRequest.senha = res.id;
-          this.cadastroRequest.googleCode = res.authToken;
-
-          this.cadastroService.cadastrarUsuario(this.cadastroRequest);
-        }
-        
-        this.router.navigate(['dashboard']);
-      }, () => {
-        this.toastr.error('Tente novamente mais tarde!', 'Erro');
-      });
-    });
+       this.cadastroService.verificarCadastro(this.cadastroRequest).subscribe((res) => {
+        this.router.navigate(['dashboard']); 
+       });
+     });
   }
 
   populateFormOnInit() {

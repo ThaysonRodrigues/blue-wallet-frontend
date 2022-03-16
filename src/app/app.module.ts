@@ -44,6 +44,7 @@ import { DialogDespesaComponent } from './dialog-despesa/dialog-despesa.componen
 import { SampleGuard } from 'src/environments/sampleGuard';
 import { MenuLateralComponent } from './menu-lateral/menu-lateral.component';
 import { ChartsModule } from 'ng2-charts';
+import { MatTableExporterModule } from 'mat-table-exporter';
 
 registerLocaleData(localePt);
 
@@ -67,11 +68,11 @@ registerLocaleData(localePt);
     RouterModule,
     ChartsModule,
     RouteRoutingModule,
-    HttpClientModule,  
+    HttpClientModule,
     MatCardModule,
     MatInputModule,
     MatButtonModule,
-    MatToolbarModule, 
+    MatToolbarModule,
     MatDatepickerModule,
     MatNativeDateModule,
     TextMaskModule,
@@ -85,16 +86,17 @@ registerLocaleData(localePt);
     MatProgressSpinnerModule,
     MatPaginatorModule,
     MatIconModule,
+    MatTableExporterModule,
     NgxLoadingModule.forRoot({
-      primaryColour : ' #3F51B5 ', 
-      SecondColour : ' #3F51B5 ', 
-      tertiaryColour : ' #3F51B5 ' 
+      primaryColour : ' #3F51B5 ',
+      SecondColour : ' #3F51B5 ',
+      tertiaryColour : ' #3F51B5 '
     })
   ],
   exports: [
     MatInputModule
   ],
-  providers: 
+  providers:
   [CadastroService, AuthService,
       {
         provide: 'SocialAuthServiceConfig',

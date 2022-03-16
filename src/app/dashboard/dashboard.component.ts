@@ -48,10 +48,10 @@ export class DashboardComponent implements OnInit {
   public pieChartLabelDespesas = [];
   public pieChartDataDespesas = [];
   public showDespesas = false;
-  
+
   public chartColors: any[] = [
-    { 
-      backgroundColor:["#05AFC4", "#46A34A", "#EA4643", "#FFFCC4", "#B9E8E0"] 
+    {
+      backgroundColor:["#05AFC4", "#46A34A", "#EA4643", "#FFFCC4", "#B9E8E0"]
     }];
 
   constructor(private authService: SocialAuthService,
@@ -59,27 +59,20 @@ export class DashboardComponent implements OnInit {
               private dashboardService: DashboardService,
               private tokenService: TokenService) {}
 
+  public nomeUsuario: string;
+
   ngOnInit() {
-    console.log('entrou aqui')
-   // this.getRelatorioDashboardMensal();
-
-  // this.authService.authState.subscribe((user) => {
-  //    this.user = user;
-  //    this.loggedIn = (user != null);
-   // });
-
-   // if (!this.loggedIn) {
-   //   this.router.navigate(['/']);
-   // }
+    this.nomeUsuario = this.tokenService.getNomeUsuario();
+    this.getRelatorioDashboardMensal();
   }
 
 
   getRelatorioDashboardMensal() {
     var dataPesquisa = moment(this.dataPesquisaDashboard.value).format(this.DATE_FORMAT);
     this.limparGraficos();
-    
+
     this.dashboardService.listarRelatorioDashboard(dataPesquisa, this.tokenService.getToken())
-    .subscribe((res) => {    
+    .subscribe((res) => {
       this.dashboardMensal = res;
 
       this.dashboardMensal.receitas.forEach(r => {
@@ -93,7 +86,7 @@ export class DashboardComponent implements OnInit {
         this.pieChartLabelDespesas.push(r.descricao);
         this.pieChartDataDespesas.push(r.valor)
       });
-    });       
+    });
   }
 
   private limparGraficos() {

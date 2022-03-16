@@ -1,8 +1,8 @@
 <body>
     <div class="wrapper">
-      
+
       <app-menu-lateral></app-menu-lateral>
-    
+
     <div class="main-panel">
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
@@ -16,11 +16,11 @@
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
          <!-- <div class="collapse navbar-collapse justify-content-end">
-          Bem vindo Thayson Rodrigues        
+          Bem vindo Thayson Rodrigues
         </div> -->
         </div>
       </nav>
-      
+
       <div class="content">
         <div class="container-fluid">
             <div class="row row d-flex justify-content-center">
@@ -35,45 +35,45 @@
                   </mat-datepicker>
                 </mat-form-field>
             </div>
-  
-          <div class="row">        
+
+          <div class="row">
             <div class="col-md-12">
-              <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table">
-  
+              <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table" id="table-despesas">
+
                 <ng-container matColumnDef="descricao">
                   <th mat-header-cell *matHeaderCellDef class="teste">Descrição</th>
                   <td mat-cell *matCellDef="let element"> {{element.descricao}} </td>
                 </ng-container>
-  
+
                 <ng-container matColumnDef="valor">
                   <th mat-header-cell *matHeaderCellDef class="teste">valor</th>
                   <td mat-cell *matCellDef="let element"> {{element.valor | currency:'BRL':true}} </td>
                 </ng-container>
-  
+
                 <ng-container matColumnDef="categoria">
                   <th mat-header-cell *matHeaderCellDef class="teste">Categoria</th>
                   <td mat-cell *matCellDef="let element"> {{element.descricaoCategoriaDespesa}} </td>
                 </ng-container>
-  
+
                 <ng-container matColumnDef="numParcelas">
                   <th mat-header-cell *matHeaderCellDef class="teste">Número de Parcelas</th>
                   <td mat-cell *matCellDef="let element"> {{element.numeroParcelas}} </td>
                 </ng-container>
-  
+
                 <ng-container matColumnDef="dataPagamento">
                   <th mat-header-cell *matHeaderCellDef class="teste">Data de Pagamento</th>
                   <td mat-cell *matCellDef="let element"> {{element.dataPagamento | date:'dd/MM/yyyy'}} </td>
                 </ng-container>
-  
+
                 <ng-container matColumnDef="situacao">
                   <th mat-header-cell *matHeaderCellDef class="teste">Situação</th>
                   <td mat-cell *matCellDef="let element">
                     <mat-icon *ngIf="element.flgPagamentoEfetuado == true" class="situacaoPaga">check_circle</mat-icon>
-                    
-                    <mat-icon *ngIf="element.flgPagamentoEfetuado == false" class="situacaoPendente">error</mat-icon>    
+
+                    <mat-icon *ngIf="element.flgPagamentoEfetuado == false" class="situacaoPendente">error</mat-icon>
                   </td>
                 </ng-container>
-  
+
                 <ng-container matColumnDef="editar">
                   <th mat-header-cell *matHeaderCellDef class="teste">Editar</th>
                   <td mat-cell *matCellDef="let element">
@@ -82,7 +82,7 @@
                     </button>
                    </td>
                 </ng-container>
-  
+
                 <ng-container matColumnDef="apagar">
                   <th mat-header-cell *matHeaderCellDef class="teste">Apagar</th>
                   <td mat-cell *matCellDef="let element">
@@ -91,33 +91,36 @@
                     </button>
                    </td>
                 </ng-container>
-          
+
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
               </table>
-  
+
               <mat-paginator
                 class="fundoCinza"
-                [pageSizeOptions]="[5]" 
-                [length]="length" 
+                [pageSizeOptions]="[5]"
+                [length]="length"
                 showFirstLastButtons>
               </mat-paginator>
-            </div>  
-  
+            </div>
+
             <ng-template #customLoadingTemplate>
             </ng-template>
-            
+
             <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px', primaryColour: '#ffffff'}" [template]="customLoadingTemplate"></ngx-loading>
-  
+
             <div class="col-md-12">
               <button type="button" (click)="openDialog()" class="btn btn-primary float-right backgroundAzul" style="background-color: #3F51B5; ">
                 NOVA DESPESA
               </button>
-            </div>        
+
+              <button type="button" [disabled]="!isDadosPesquisa" (click)="exportNormalTable()" class="btn btn-primary float-left backgroundAzul" style="background-color: #3F51B5; ">
+                BAIXAR
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    
     </div>
   </body>

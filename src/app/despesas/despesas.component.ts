@@ -17,6 +17,7 @@ import { MY_FORMATS } from 'src/environments/myFormats';
 import { LancamentoDespesaService } from '../service/lancamento-despesa.service';
 import { DialogDespesaComponent } from '../dialog-despesa/dialog-despesa.component';
 import { ControleEstadoDespesasService } from '../service/controle-estado-despesas.service';
+import { TableUtil } from '../util/TableUtil';
 
 @Component({
   selector: 'app-despesas',
@@ -43,12 +44,14 @@ export class DespesasComponent implements OnInit {
   displayedColumns: string [] = ['descricao', 'valor', 'categoria', 'numParcelas', 'dataPagamento', 'situacao', 'editar', 'apagar'];
 
   dataPesquisaReceita = new FormControl(moment());
-  
+
   public pesquisaReceitaForm: FormGroup;
 
   DATE_FORMAT = "YYYY-MM";
 
   loading = false;
+
+  isDadosPesquisa = false;
 
   length: number;
 
@@ -82,7 +85,7 @@ export class DespesasComponent implements OnInit {
       width: '500px'
     });
 
-    dialogRef.afterClosed().subscribe(result => {    
+    dialogRef.afterClosed().subscribe(result => {
       if(this.controleEstadoDespesa.getAtualizaTable()) {
         this.controleEstadoDespesa.setAtualizaTable(false);
         console.log(this.controleEstadoDespesa.getAcao())
@@ -100,13 +103,15 @@ export class DespesasComponent implements OnInit {
         this.loading = false;
 
         if(res) {
-          this.dataSource = new MatTableDataSource(res.content);    
-          this.dataSource.paginator = this.paginator;    
+          this.isDadosPesquisa = true;
+          this.dataSource = new MatTableDataSource(res.content);
+          this.dataSource.paginator = this.paginator;
           this.length = res.totalElements;
         } else {
-          this.dataSource = new MatTableDataSource(null);    
+          this.isDadosPesquisa = false;
+          this.dataSource = new MatTableDataSource(null);
         }
-        
+
         this.notificarUsuario(acao);
       }, err => {
         this.loading = false;
@@ -138,5 +143,9 @@ export class DespesasComponent implements OnInit {
         this.toastr.error('Ocorreu um erro excluir receita, tente novamente mais tarde!', '');
       });
     }
+  }
+
+  exportNormalTable() {
+    TableUtil.exportTableToExcel("table-despesas","despesas");
   }
 }

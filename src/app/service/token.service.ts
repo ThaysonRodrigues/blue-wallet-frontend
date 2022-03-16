@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Key } from 'protractor';
 
 const KEY = 'authToken'
+const KEY_USER = 'user'
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +9,14 @@ const KEY = 'authToken'
 export class TokenService {
 
   constructor() {}
+
+  setNomeUsuario(nomeUsuario) {
+    window.localStorage.setItem(KEY_USER, nomeUsuario);
+  }
+
+  getNomeUsuario() {
+    return window.localStorage.getItem(KEY_USER);
+  }
 
   hasToken() {
     var token: String = this.getToken();
@@ -25,5 +33,9 @@ export class TokenService {
 
   removeToken() {
     window.localStorage.removeItem(KEY);
+  }
+
+  removeUserName() {
+    window.localStorage.removeItem(KEY_USER);
   }
 }

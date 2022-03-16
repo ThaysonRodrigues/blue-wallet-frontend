@@ -34,6 +34,7 @@
     "chart.js": "^2.9.3",
     "express": "^4.17.1",
     "jquery": "^3.3.1",
+    "mat-table-exporter": "^10.2.4",
     "moment": "^2.29.1",
     "ng2-charts": "^2.4.2",
     "ngx-currency": "^2.5.3",
@@ -42,6 +43,7 @@
     "popper.js": "^1.14.3",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
+    "xlsx": "^0.18.3",
     "zone.js": "~0.11.3"
   },
   "devDependencies": {

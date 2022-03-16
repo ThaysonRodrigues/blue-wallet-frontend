@@ -1,3 +1,4 @@
+import { TokenService } from 'src/app/service/token.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -6,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../service/auth.service';
 import { CadastroService } from '../service/cadastro.service';
 import { CadastrarUsuarioRequest } from '../service/interface/request/cadastrarUsuarioRequest';
+import * as XLSX from "xlsx";
 
 @Component({
   selector: 'app-login',
@@ -14,7 +16,7 @@ import { CadastrarUsuarioRequest } from '../service/interface/request/cadastrarU
 })
 export class LoginComponent implements OnInit {
 
-  socialUser: SocialUser;  
+  socialUser: SocialUser;
   cadastroRequest: CadastrarUsuarioRequest;
 
   loading = false;
@@ -26,7 +28,8 @@ export class LoginComponent implements OnInit {
               private cadastroService: CadastroService,
               private toastr: ToastrService,
               private router: Router,
-              private authService: AuthService
+              private authService: AuthService,
+              private tokenService: TokenService
             ) {}
 
   ngOnInit(): void {
@@ -41,10 +44,13 @@ export class LoginComponent implements OnInit {
       let senha = this.loginForm.get('senha').value;
 
       this.authService.autenticarUsuario(email, senha).subscribe((response) => {
-        this.loading = false;
-        this.router.navigate(['/dashboard']);
+        this.cadastroService.getNomeUsuario(this.tokenService.getToken()).subscribe((res) => {
+          this.tokenService.setNomeUsuario(res.nome);
+          this.router.navigate(['/dashboard']);
+        });
+
       }, (responseError) => {
-        if(responseError.status == 401) {      
+        if(responseError.status == 401) {
           this.loading = false;
           this.toastr.error('Email ou Senha Inválido!', 'Atenção');
           this.loginForm.reset();
@@ -56,19 +62,24 @@ export class LoginComponent implements OnInit {
     } else {
       this.toastr.error('Preencha todos os campos obrigatórios', 'Erro');
     }
+
+    this.loading = false;
   }
 
   loginWithGoogle(): void {
      this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((res) => {
-    
-       this.cadastroRequest = new CadastrarUsuarioRequest;
-       this.cadastroRequest.email = res.email;
-       this.cadastroRequest.nome = res.firstName + " " + res.lastName;
-       this.cadastroRequest.idGoogle = res.id;
+        let nomeUsuario = res.firstName + " " + res.lastName;
 
-       this.cadastroService.verificarCadastro(this.cadastroRequest).subscribe((res) => {
-        this.router.navigate(['dashboard']); 
-       });
+        this.cadastroRequest = new CadastrarUsuarioRequest;
+        this.cadastroRequest.email = res.email;
+        this.cadastroRequest.nome = nomeUsuario;
+        this.cadastroRequest.idGoogle = res.id;
+
+        this.tokenService.setNomeUsuario(nomeUsuario);
+
+        this.cadastroService.verificarCadastro(this.cadastroRequest).subscribe((res) => {
+          this.router.navigate(['dashboard']);
+        });
      });
   }
 

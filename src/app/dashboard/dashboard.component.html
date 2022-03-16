@@ -1,7 +1,7 @@
 <script src="node_modules/chart.js/src/chart.js"></script>
 
 <div class="wrapper ">
-  
+
   <app-menu-lateral></app-menu-lateral>
 
   <div class="main-panel">
@@ -17,7 +17,7 @@
           <span class="navbar-toggler-icon icon-bar"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end">
-          Bem vindo Thayson Rodrigues        
+          Bem vindo {{ nomeUsuario }}
         </div>
       </div>
     </nav>
@@ -46,7 +46,7 @@
                 </div>
                 <p class="card-category">Saldo Atual</p>
                 <h3 class="card-title">
-                  {{ dashboardMensal.valorSaldoAtual }}    
+                  {{ dashboardMensal.valorSaldoAtual }}
                 </h3>
               </div>
               <div class="card-footer">
@@ -65,7 +65,7 @@
                 </div>
                 <p class="card-category">Receitas</p>
                 <h3 class="card-title">
-                  {{ dashboardMensal.valorTotalReceitas }}      
+                  {{ dashboardMensal.valorTotalReceitas }}
                 </h3>
               </div>
               <div class="card-footer">
@@ -83,7 +83,7 @@
                 </div>
                 <p class="card-category">Despesas</p>
                 <h3 class="card-title">
-                  {{ dashboardMensal.valorTotalDespesas }}      
+                  {{ dashboardMensal.valorTotalDespesas }}
                 </h3>
               </div>
               <div class="card-footer">
@@ -92,39 +92,39 @@
                 </div>
               </div>
             </div>
-          </div>        
+          </div>
         </div>
 
         <div class="row">
           <div class="col-lg-6 col-md-12 col-sm-12" *ngIf="showReceitas">
             <div class="card card-stats">
-              <div class="card-header card-header-success card-header-icon">              
+              <div class="card-header card-header-success card-header-icon">
                   <canvas baseChart
                     [data]="pieChartDataReceitas"
                     [labels]="pieChartLabelReceitas"
                     [colors]="chartColors"
                     [chartType]="pieChartType">
-                  </canvas>                   
+                  </canvas>
               </div>
-              <div class="card-footer">               
+              <div class="card-footer">
               </div>
             </div>
           </div>
-          
+
           <div class="col-lg-6 col-md-12 col-sm-12" *ngIf="showDespesas">
             <div class="card card-stats">
-              <div class="card-header card-header-success card-header-icon">              
+              <div class="card-header card-header-success card-header-icon">
                   <canvas baseChart
                     [data]="pieChartDataDespesas"
                     [labels]="pieChartLabelDespesas"
                     [colors]="chartColors"
                     [chartType]="pieChartType">
-                  </canvas>                   
+                  </canvas>
               </div>
-              <div class="card-footer">               
+              <div class="card-footer">
               </div>
             </div>
-          </div>      
+          </div>
           </div>
         </div>
       </div>

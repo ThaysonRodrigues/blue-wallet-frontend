@@ -19,6 +19,8 @@ export const environment = {
   listarLancamentoDespesa: apiURL + "/despesa/pesquisar",
   apagarDespesa: apiURL + "/despesa/deletar",
 
-  listarRelatorioDashboard: apiURL + "/dashboard"
+  listarRelatorioDashboard: apiURL + "/dashboard",
+
+  consultarUserName: apiURL + "/conta/user-name"
 };
 

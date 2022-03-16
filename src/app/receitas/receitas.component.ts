@@ -1,4 +1,4 @@
-import { Component, Injectable, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Injectable, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogReceitaComponent } from '../dialog-receita/dialog-receita.component';
 import { ReceitaDTO } from '../service/interface/response/receitaDTO';
@@ -17,6 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MatTableDataSource } from '@angular/material/table';
 import { ControleEstadoReceitasService } from '../service/controle-estado-receitas.service.service';
 import { Acao } from 'src/environments/acao';
+import { TableUtil } from '../util/TableUtil';
 
 @Component({
   selector: 'app-receitas',
@@ -42,22 +43,27 @@ export class ReceitasComponent implements OnInit {
               ) { }
 
   displayedColumns: string [] = ['descricao', 'valor', 'categoria', 'numParcelas', 'dataLancamento', 'situacao', 'editar', 'apagar'];
-  
+
   dataPesquisaReceita = new FormControl(moment());
-  
+
   public pesquisaReceitaForm: FormGroup;
 
   DATE_FORMAT = "YYYY-MM";
 
   loading = false;
 
+  isDadosPesquisa = false;
+
   length: number;
 
-  dataSource: MatTableDataSource<ReceitaDTO>;
+  dataSource;
+
+  public nomeUsuario: string;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  
+  @ViewChild('TABLE') table: ElementRef;
   ngOnInit(): void {
+    this.nomeUsuario = this.tokenService.getNomeUsuario();
     this.listarLancamentoReceitas(null);
   }
 
@@ -100,11 +106,14 @@ export class ReceitasComponent implements OnInit {
         this.loading = false;
 
         if(res) {
-          this.dataSource = new MatTableDataSource(res.content);    
-          this.dataSource.paginator = this.paginator;    
+          this.isDadosPesquisa = true;
+          this.dataSource = new MatTableDataSource(res.content);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.table = this.table;
           this.length = res.totalElements;
         } else {
-          this.dataSource = new MatTableDataSource(null);    
+          this.isDadosPesquisa = false;
+          this.dataSource = new MatTableDataSource(null);
         }
 
         this.notificarUsuario(acao);
@@ -138,5 +147,9 @@ export class ReceitasComponent implements OnInit {
     } else if(acao == Acao.EDITAR) {
       this.toastr.success('Receita editada com sucesso!');
     }
+  }
+
+  exportNormalTable() {
+    TableUtil.exportTableToExcel("table-receitas","receitas");
   }
 }

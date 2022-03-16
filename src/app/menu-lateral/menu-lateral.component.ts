@@ -15,6 +15,7 @@ export class MenuLateralComponent implements OnInit {
 
   logout() {
     this.tokenService.removeToken();
+    this.tokenService.removeUserName();
     this.router.navigate(['/']);
   }
 }

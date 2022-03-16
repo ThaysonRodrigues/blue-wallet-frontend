@@ -2,26 +2,26 @@
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 
 .backgroundAzul {
-    background-color: #3F51B5; 
+    background-color: #3F51B5;
 }
 
 .slidePago {
-    color: #A1A1A1;
-    padding-top: 10px;
+  color: #A1A1A1;
+  padding-top: 10px;
 }
 
 .btnSalvar {
-    padding-top: 15px;
+  padding-top: 15px;
 }
 
 .teste {
-    background-color: #3F51B5;
-    color: white;
-    font-size: 11pt !important;
+  background-color: #3F51B5;
+  color: white;
+  font-size: 11pt !important;
 }
 
 .table {
-    border-radius: 5px;
+  border-radius: 5px;
 }
 
 .situacaoPaga {

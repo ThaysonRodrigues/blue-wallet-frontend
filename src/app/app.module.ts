@@ -45,6 +45,7 @@ import { SampleGuard } from 'src/environments/sampleGuard';
 import { MenuLateralComponent } from './menu-lateral/menu-lateral.component';
 import { ChartsModule } from 'ng2-charts';
 import { MatTableExporterModule } from 'mat-table-exporter';
+import { DialogDadosUsuarioComponent } from './dialog-dados-usuario/dialog-dados-usuario.component';
 
 registerLocaleData(localePt);
 
@@ -59,7 +60,8 @@ registerLocaleData(localePt);
     DialogReceitaComponent,
     DespesasComponent,
     DialogDespesaComponent,
-    MenuLateralComponent
+    MenuLateralComponent,
+    DialogDadosUsuarioComponent
   ],
   imports: [
     ReactiveFormsModule,

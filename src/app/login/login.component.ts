@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
       let senha = this.loginForm.get('senha').value;
 
       this.authService.autenticarUsuario(email, senha).subscribe((response) => {
-        this.cadastroService.getNomeUsuario(this.tokenService.getToken()).subscribe((res) => {
+        this.cadastroService.getDadosCadastrais(this.tokenService.getToken()).subscribe((res) => {
           this.tokenService.setNomeUsuario(res.nome);
           this.router.navigate(['/dashboard']);
         });

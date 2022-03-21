@@ -2,8 +2,11 @@ const apiURL = 'http:///localhost:8080/api';
 
 export const environment = {
   production: false,
+
   cadastrarNovoUsuario: apiURL + '/conta/cadastrar',
   verificarConta: apiURL + '/conta/verificar',
+  atualizarDadosCadastrais: apiURL + "/conta/atualizar-dados-cadastrais",
+
   autenticarUsuario: apiURL + '/auth',
 
   pesquisarCategoriaReceita: apiURL + "/categoria/receita",
@@ -21,6 +24,6 @@ export const environment = {
 
   listarRelatorioDashboard: apiURL + "/dashboard",
 
-  consultarUserName: apiURL + "/conta/user-name"
+  consultarUserName: apiURL + "/conta/dados-cadastrais"
 };
 

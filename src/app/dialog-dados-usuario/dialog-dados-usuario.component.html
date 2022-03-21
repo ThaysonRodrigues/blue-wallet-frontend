@@ -1,0 +1,47 @@
+<div class="container">
+
+  <h1>Perfil</h1>
+
+  <hr>
+
+  <form [formGroup]="dadosCadastraisForm">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-form-field>
+          <input matInput type="text" placeholder="Nome Completo" formControlName="nome">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field>
+          <mat-label>Data de Nascimento</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="dataNascimento">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <mat-form-field>
+          <input type="text" [textMask]="{mask: maskTelefone}" matInput placeholder="Celular" formControlName="celular">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <mat-form-field>
+          <input type="email" email="true" matInput placeholder="Email" readonly="true" formControlName="email">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <button class="primary float-right" color="primary" mat-raised-button (click)="atualizarDadosCadastrais()">ATUALIZAR</button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,4 +1,6 @@
+import { DialogDadosUsuarioComponent } from './../dialog-dados-usuario/dialog-dados-usuario.component';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TokenService } from '../service/token.service';
 
@@ -9,7 +11,7 @@ import { TokenService } from '../service/token.service';
 })
 export class MenuLateralComponent implements OnInit {
 
-  constructor(private router: Router, private tokenService: TokenService) { }
+  constructor(private router: Router, private tokenService: TokenService, public dialog: MatDialog) { }
 
   ngOnInit(): void {}
 
@@ -17,5 +19,11 @@ export class MenuLateralComponent implements OnInit {
     this.tokenService.removeToken();
     this.tokenService.removeUserName();
     this.router.navigate(['/']);
+  }
+
+  abrirModalDadosCadastrais() {
+    const dialogRef = this.dialog.open(DialogDadosUsuarioComponent, {
+      width: '500px'
+    });
   }
 }

@@ -27,12 +27,21 @@ export class CadastroService {
       }));
   }
 
-  getNomeUsuario(token: string): Observable<UsuarioDTO> {
+  getDadosCadastrais(token: string): Observable<UsuarioDTO> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
 
     return this.http.get<UsuarioDTO>(environment.consultarUserName, {headers: headers});
+  }
+
+  atualizarDadosCadastrais(dadosUsuario: UsuarioDTO, token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.put(environment.atualizarDadosCadastrais, dadosUsuario, {headers: headers});
   }
 }

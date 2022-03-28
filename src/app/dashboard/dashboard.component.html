@@ -93,37 +93,27 @@
         </div>
 
         <div class="row">
-          <div class="col-lg-6 col-md-12 col-sm-12" *ngIf="showReceitas">
-            <div class="card card-stats">
-              <div class="card-header card-header-success card-header-icon">
-                  <canvas baseChart
-                    [data]="pieChartDataReceitas"
-                    [labels]="pieChartLabelReceitas"
-                    [colors]="chartColors"
-                    [chartType]="pieChartType">
-                  </canvas>
-              </div>
-              <div class="card-footer">
-              </div>
-            </div>
+          <div class="col-lg-6 col-md-12 col-sm-12" style="text-align: center; margin-top: 20px;" *ngIf="showReceitas">
+            <span class="navbar-brand" style="color: #818181;">Receitas por categoria</span>
+            <canvas baseChart title="teste"
+              [data]="pieChartDataReceitas"
+              [labels]="pieChartLabelReceitas"
+              [colors]="chartColors"
+              [chartType]="pieChartType">
+            </canvas>
           </div>
 
-          <div class="col-lg-6 col-md-12 col-sm-12" *ngIf="showDespesas">
-            <div class="card card-stats">
-              <div class="card-header card-header-success card-header-icon">
-                  <canvas baseChart
-                    [data]="pieChartDataDespesas"
-                    [labels]="pieChartLabelDespesas"
-                    [colors]="chartColors"
-                    [chartType]="pieChartType">
-                  </canvas>
-              </div>
-              <div class="card-footer">
-              </div>
-            </div>
-          </div>
+          <div class="col-lg-6 col-md-12 col-sm-12" style="text-align: center; margin-top: 20px;" *ngIf="showDespesas">
+            <p class="navbar-brand" style="color: #818181;">Despesas por categoria</p>
+            <canvas baseChart
+              [data]="pieChartDataDespesas"
+              [labels]="pieChartLabelDespesas"
+              [colors]="chartColors"
+              [chartType]="pieChartType">
+            </canvas>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </div>

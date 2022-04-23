@@ -5,10 +5,10 @@
   </mat-toolbar>
 
   <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px', primaryColour: '#ffffff'}" ></ngx-loading>
-  
+
   <div class="form-login">
     <mat-card>
-      <mat-card-title>Login</mat-card-title>
+      <mat-card-title>LOGIN</mat-card-title>
       <mat-card-content>
         <form [formGroup]="loginForm">
           <p>
@@ -16,26 +16,30 @@
               <input type="text" matInput placeholder="Email" formControlName="email">
             </mat-form-field>
           </p>
-  
+
           <p>
             <mat-form-field>
               <input type="password" matInput placeholder="Senha" formControlName="senha">
             </mat-form-field>
           </p>
-          
+
           <div>
-            <button class="button-100" (click)="login()" color="primary" mat-raised-button>LOGIN</button>      
+            <button class="button-100" (click)="login()" color="primary" mat-raised-button>LOGIN</button>
           </div>
-          
+
+          <div class="button-top-10">
+            <button class="button-100" (click)="abrirModalRecuperarSenha()" color="primary" mat-raised-button>RECUPERAR SENHA</button>
+          </div>
+
           <div class="button-cadastrar">
             <hr />
             <button type="button" class="button-100" (click)="loginWithGoogle()" color="primary" mat-raised-button> <i class="bi bi-google"></i> CONTINUAR COM O GOOGLE</button>
-          </div>  
-          
-          <div class="button-cadastrar-facebook">
-            <button class="button-100" routerLink="/cadastro"  color="primary" mat-raised-button>CRIAR NOVA CONTA</button>  
-          </div>  
+          </div>
+
+          <div class="button-top-10">
+            <button class="button-100" routerLink="/cadastro"  color="primary" mat-raised-button>CRIAR NOVA CONTA</button>
+          </div>
         </form>
       </mat-card-content>
     </mat-card>
-  </div>  
+  </div>

@@ -9,7 +9,7 @@ import { TokenService } from './token.service';
 
 @Injectable
 (
-    { providedIn: 'root' }
+  { providedIn: 'root' }
 )
 
 export class CadastroService {
@@ -43,5 +43,13 @@ export class CadastroService {
     });
 
     return this.http.put(environment.atualizarDadosCadastrais, dadosUsuario, {headers: headers});
+  }
+
+  enviarCodigoRecuperarSenha(email: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.post(environment.enviarCodigoRecuperarSenha + `${email}`, {headers: headers});
   }
 }

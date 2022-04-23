@@ -46,6 +46,7 @@ import { MenuLateralComponent } from './menu-lateral/menu-lateral.component';
 import { ChartsModule } from 'ng2-charts';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { DialogDadosUsuarioComponent } from './dialog-dados-usuario/dialog-dados-usuario.component';
+import { DialogRecuperarSenhaComponent } from './dialog-recuperar-senha/dialog-recuperar-senha.component';
 
 registerLocaleData(localePt);
 
@@ -61,7 +62,8 @@ registerLocaleData(localePt);
     DespesasComponent,
     DialogDespesaComponent,
     MenuLateralComponent,
-    DialogDadosUsuarioComponent
+    DialogDadosUsuarioComponent,
+    DialogRecuperarSenhaComponent
   ],
   imports: [
     ReactiveFormsModule,

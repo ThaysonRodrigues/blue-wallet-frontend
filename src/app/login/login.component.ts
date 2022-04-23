@@ -1,3 +1,4 @@
+import { DialogRecuperarSenhaComponent } from './../dialog-recuperar-senha/dialog-recuperar-senha.component';
 import { TokenService } from 'src/app/service/token.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -8,6 +9,7 @@ import { AuthService } from '../service/auth.service';
 import { CadastroService } from '../service/cadastro.service';
 import { CadastrarUsuarioRequest } from '../service/interface/request/cadastrarUsuarioRequest';
 import * as XLSX from "xlsx";
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +31,8 @@ export class LoginComponent implements OnInit {
               private toastr: ToastrService,
               private router: Router,
               private authService: AuthService,
-              private tokenService: TokenService
+              private tokenService: TokenService,
+              public dialog: MatDialog
             ) {}
 
   ngOnInit(): void {
@@ -87,6 +90,12 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       email: new FormControl('', [Validators.required]),
       senha: new FormControl('', [Validators.required]),
+    });
+  }
+
+  abrirModalRecuperarSenha() {
+    const dialogRef = this.dialog.open(DialogRecuperarSenhaComponent, {
+      width: '400px'
     });
   }
 }

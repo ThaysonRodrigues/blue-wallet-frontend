@@ -42,7 +42,7 @@ export class DialogReceitaComponent implements OnInit {
   DATE_FORMAT = "MM/DD/YYYY";
 
   descricaoAcao: string;
-  
+
   idReceita: number;
 
   ngOnInit(): void {
@@ -53,11 +53,11 @@ export class DialogReceitaComponent implements OnInit {
 
     if(this.controleEstadoReceita.getReceita() != null) {
       this.populaFormEdicao(this.controleEstadoReceita.getReceita());
-      
+
       this.descricaoAcao = 'Editar Receita';
       this.idReceita = this.controleEstadoReceita.getReceita().idReceita;
-      
-      this.controleEstadoReceita.setReceita(null);      
+
+      this.controleEstadoReceita.setReceita(null);
     } else {
       this.descricaoAcao = 'Cadastrar Receita';
     }
@@ -74,18 +74,18 @@ export class DialogReceitaComponent implements OnInit {
       receita.numeroParcelas = this.receitaForm.get('quantidadeParcelas').value;
       receita.flgPagamentoEfetuado = this.receitaForm.get('despesaPaga').value;
 
-      if(this.idReceita == null) { 
+      if(this.idReceita == null) {
         //Grava nova receita
         this.lancamentoReceitaService.gravarLancamentoReceita(receita, this.tokenService.getToken())
           .subscribe(data => {
             this.fecharModal();
-            
+
             this.controleEstadoReceita.setAtualizaTable(true);
             this.controleEstadoReceita.setAcao(Acao.GRAVAR);
           }, (error) => {
             this.toastr.error('Tente novamente mais tarde!', 'Erro');
           });
-      } else { 
+      } else {
         // Atualiza receita
         receita.idReceita = this.idReceita;
 
@@ -119,7 +119,7 @@ export class DialogReceitaComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  populaFormEdicao(receita) {  
+  populaFormEdicao(receita) {
     this.receitaForm.get('descricao').setValue(receita.descricao);
     this.receitaForm.get('valor').setValue(receita.valor);
     this.receitaForm.get('dataLancamento').setValue(new Date(moment(receita.dataLancamento)

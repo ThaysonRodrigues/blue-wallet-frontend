@@ -6,7 +6,9 @@ export const environment = {
   cadastrarNovoUsuario: apiURL + '/conta/cadastrar',
   verificarConta: apiURL + '/conta/verificar',
   atualizarDadosCadastrais: apiURL + "/conta/atualizar-dados-cadastrais",
-  enviarCodigoRecuperarSenha: apiURL + "/conta/recuperar-senha/",
+  enviarCodigoRecuperarSenha: apiURL + "/recuperar-conta/enviar-email/",
+  verificarCodigoRecuperarSenha: apiURL + "/recuperar-conta/verificar",
+  atualizarSenha: apiURL + "/recuperar-conta/atualizar-senha",
 
   autenticarUsuario: apiURL + '/auth',
 

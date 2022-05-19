@@ -6,6 +6,7 @@ import { CadastrarUsuarioRequest } from './interface/request/cadastrarUsuarioReq
 import { environment } from 'src/environments/environment';
 import { tap } from 'rxjs/operators';
 import { TokenService } from './token.service';
+import { AtualizarSenhaRequest } from './interface/request/atualizarSenhaRequest';
 
 @Injectable
 (
@@ -51,5 +52,23 @@ export class CadastroService {
     });
 
     return this.http.post(environment.enviarCodigoRecuperarSenha + `${email}`, {headers: headers});
+  }
+
+  verificarCodigoRecuperacaoSenha(codigo: string, email: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'codigo': codigo,
+      'email': email
+    });
+
+    return this.http.get(environment.verificarCodigoRecuperarSenha, {headers: headers});
+  }
+
+  atualizarSenha(atualizarSenhaRequest: AtualizarSenhaRequest) : Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.post(environment.atualizarSenha, atualizarSenhaRequest, {headers: headers});
   }
 }
